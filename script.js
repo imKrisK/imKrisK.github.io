@@ -167,6 +167,13 @@ class ScrollAnimations {
 class ProjectsManager {
     constructor() {
         this.githubUsername = 'imKrisK';
+        // Project categories and mapping for better organization
+        this.projectCategories = {
+            'Web Applications & UI/UX': ['From-Concept-to-Completion', 'slider', 'book-writing-platform'],
+            'Backend and API Development': ['mobilerestaurantAPI'],
+            'Business & E-commerce': ['m7-localfoodtruck'],
+            'Desktop Application': ['FlouriteOS']
+        };
         this.init();
     }
 
@@ -176,14 +183,36 @@ class ProjectsManager {
 
     async loadProjects() {
         try {
-            const response = await fetch(`https://api.github.com/users/${this.githubUsername}/repos?sort=updated&per_page=6`);
+            const response = await fetch(`https://api.github.com/users/${this.githubUsername}/repos?sort=updated&per_page=20`);
             const repos = await response.json();
             
-            const featuredProjects = repos
-                .filter(repo => !repo.fork && repo.description)
+            // Featured project names in order of importance
+            const featuredProjectNames = [
+                'From-Concept-to-Completion',
+                'slider', 
+                'book-writing-platform',
+                'mobilerestaurantAPI',
+                'm7-localfoodtruck',
+                'FlouriteOS'
+            ];
+            
+            // First, get the featured projects in the specified order
+            const featuredProjects = featuredProjectNames
+                .map(name => repos.find(repo => repo.name === name))
+                .filter(repo => repo && !repo.fork)
                 .slice(0, 6);
             
-            this.renderProjects(featuredProjects);
+            // If we don't have enough featured projects, fill with other repos
+            if (featuredProjects.length < 6) {
+                const otherRepos = repos
+                    .filter(repo => !repo.fork && 
+                           !featuredProjectNames.includes(repo.name) && 
+                           repo.description)
+                    .slice(0, 6 - featuredProjects.length);
+                featuredProjects.push(...otherRepos);
+            }
+            
+            this.renderProjects(featuredProjects.slice(0, 6));
         } catch (error) {
             console.error('Error loading projects:', error);
             this.renderFallbackProjects();
@@ -225,9 +254,23 @@ class ProjectsManager {
     }
 
     getProjectLanguages(project) {
-        const commonLanguages = ['JavaScript', 'TypeScript', 'React', 'Vue', 'Node.js', 'Python', 'PHP', 'HTML', 'CSS'];
         const repoName = project.name.toLowerCase();
         const description = (project.description || '').toLowerCase();
+        
+        // Enhanced technology detection for specific projects
+        const projectTechMap = {
+            'from-concept-to-completion': ['TypeScript', 'React', 'Next.js'],
+            'slider': ['JavaScript', 'CSS3', 'HTML5'],
+            'book-writing-platform': ['TypeScript', 'Next.js', 'Tailwind CSS'],
+            'mobilerestaurantapi': ['Node.js', 'Express.js', 'JWT'],
+            'm7-localfoodtruck': ['JavaScript', 'Stripe API', 'Vercel'],
+            'flouriteos': ['Python', 'Tkinter', 'Desktop App']
+        };
+        
+        // Check if we have specific tech stack for this project
+        if (projectTechMap[repoName]) {
+            return projectTechMap[repoName];
+        }
         
         const detectedLanguages = [];
         
@@ -248,6 +291,12 @@ class ProjectsManager {
         if (repoName.includes('typescript') || description.includes('typescript')) {
             detectedLanguages.push('TypeScript');
         }
+        if (repoName.includes('next') || description.includes('next')) {
+            detectedLanguages.push('Next.js');
+        }
+        if (repoName.includes('api') || description.includes('api')) {
+            detectedLanguages.push('REST API');
+        }
         
         // Remove duplicates and limit to 3 tags
         return [...new Set(detectedLanguages)].slice(0, 3);
@@ -256,25 +305,46 @@ class ProjectsManager {
     renderFallbackProjects() {
         const fallbackProjects = [
             {
-                name: 'Portfolio Website',
-                description: 'A responsive portfolio website built with modern web technologies.',
-                languages: ['HTML', 'CSS', 'JavaScript'],
-                demoUrl: '#',
-                githubUrl: `https://github.com/${this.githubUsername}`
+                name: 'From Concept to Completion',
+                description: 'Modern, interactive web application with focus on responsive design, accessibility, and advanced user experience. Built with TypeScript and modern development practices.',
+                languages: ['TypeScript', 'React', 'Next.js'],
+                demoUrl: 'https://github.com/imKrisK/From-Concept-to-Completion',
+                githubUrl: 'https://github.com/imKrisK/From-Concept-to-Completion'
             },
             {
-                name: 'Web Application',
-                description: 'A full-stack web application with user authentication and real-time features.',
-                languages: ['React', 'Node.js', 'MongoDB'],
-                demoUrl: '#',
-                githubUrl: `https://github.com/${this.githubUsername}`
+                name: 'Interactive Slider Component',
+                description: 'Responsive, interactive slider component with smooth animations and touch support. Demonstrates advanced CSS and JavaScript techniques.',
+                languages: ['JavaScript', 'CSS3', 'HTML5'],
+                demoUrl: 'https://github.com/imKrisK/slider',
+                githubUrl: 'https://github.com/imKrisK/slider'
             },
             {
-                name: 'API Service',
-                description: 'RESTful API service with comprehensive documentation and testing.',
-                languages: ['Node.js', 'Express', 'PostgreSQL'],
-                demoUrl: '#',
-                githubUrl: `https://github.com/${this.githubUsername}`
+                name: 'Book Writing Platform',
+                description: 'Collaborative writing platform built with Next.js 15, TypeScript, and Tailwind CSS. Features distraction-free writing environment and modern UI components.',
+                languages: ['TypeScript', 'Next.js', 'Tailwind CSS'],
+                demoUrl: 'https://github.com/imKrisK/book-writing-platform',
+                githubUrl: 'https://github.com/imKrisK/book-writing-platform'
+            },
+            {
+                name: 'Mobile Restaurant API',
+                description: 'Secure, scalable REST API for restaurant applications. Features JWT authentication, bcrypt security, and comprehensive API testing with Postman.',
+                languages: ['Node.js', 'Express.js', 'JavaScript'],
+                demoUrl: 'https://github.com/imKrisK/mobilerestaurantAPI',
+                githubUrl: 'https://github.com/imKrisK/mobilerestaurantAPI'
+            },
+            {
+                name: 'Local Food Truck Platform',
+                description: 'Business-focused web solution with integrated Stripe payment processing, automated testing, and CI/CD deployment pipelines on Vercel.',
+                languages: ['JavaScript', 'Stripe API', 'Testing Library'],
+                demoUrl: 'https://github.com/imKrisK/m7-localfoodtruck',
+                githubUrl: 'https://github.com/imKrisK/m7-localfoodtruck'
+            },
+            {
+                name: 'FlouriteOS',
+                description: 'Cross-platform desktop application developed with Python and Tkinter. Features modern desktop UI design and comprehensive technical documentation.',
+                languages: ['Python', 'Tkinter', 'macOS'],
+                demoUrl: 'https://github.com/imKrisK/FlouriteOS',
+                githubUrl: 'https://github.com/imKrisK/FlouriteOS'
             }
         ];
 
