@@ -1,0 +1,25 @@
+<!-- MongoDB Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48">
+  <defs>
+    <linearGradient id="mongo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4DB33D"/>
+      <stop offset="50%" style="stop-color:#3FA037"/>
+      <stop offset="100%" style="stop-color:#599636"/>
+    </linearGradient>
+    <filter id="glow-mongo">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- MongoDB leaf shape -->
+  <path d="M32,6 C36,6 42,12 44,20 C46,28 44,36 40,42 C36,48 32,52 32,58 C32,52 28,48 24,42 C20,36 18,28 20,20 C22,12 28,6 32,6 Z" fill="url(#mongo-gradient)" filter="url(#glow-mongo)"/>
+  <!-- Inner leaf detail -->
+  <path d="M32,10 C34,10 38,14 39,20 C40,26 39,32 36,36 C34,40 32,42 32,46 C32,42 30,40 28,36 C25,32 24,26 25,20 C26,14 30,10 32,10 Z" fill="#6FAE3F" opacity="0.8"/>
+  <!-- Animated shine -->
+  <ellipse cx="34" cy="22" rx="2" ry="8" fill="white" opacity="0.3">
+    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+</svg>

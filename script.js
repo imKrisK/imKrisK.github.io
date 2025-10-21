@@ -569,6 +569,7 @@ class BackgroundEffects {
 class VisitorCounter {
     constructor() {
         this.counterElement = document.getElementById('visitor-count');
+        this.heroCounterElement = document.getElementById('visitor-count-hero');
         this.storageKey = 'imkrisk-visitor-count';
         this.init();
     }
@@ -607,6 +608,30 @@ class VisitorCounter {
                 this.counterElement.style.opacity = '1';
             }, 200);
         }
+        if (this.heroCounterElement) {
+            // Animate hero counter with typewriter effect
+            this.animateCounter(this.heroCounterElement, count);
+        }
+    }
+
+    animateCounter(element, targetCount) {
+        const duration = 2000; // 2 seconds
+        const stepTime = 50; // Update every 50ms
+        const steps = duration / stepTime;
+        let currentStep = 0;
+        
+        const timer = setInterval(() => {
+            currentStep++;
+            const progress = currentStep / steps;
+            const currentCount = Math.floor(targetCount * progress);
+            
+            element.textContent = this.formatNumber(currentCount);
+            
+            if (currentStep >= steps) {
+                clearInterval(timer);
+                element.textContent = this.formatNumber(targetCount);
+            }
+        }, stepTime);
     }
 
     formatNumber(num) {
@@ -693,6 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new VisitorCounter();
     new BackgroundEffects();
     new PerformanceOptimizer();
+    new SkillAnimations();
 
     // Initialize typing animation for hero subtitle
     const heroSubtitle = document.querySelector('.hero-subtitle');
@@ -734,12 +760,137 @@ window.addEventListener('error', (e) => {
     // You could send error reports to a logging service here
 });
 
+// Skill Animations Class
+class SkillAnimations {
+    constructor() {
+        this.skillIcons = document.querySelectorAll('.skill-icon');
+        this.init();
+    }
+
+    init() {
+        this.observeSkills();
+        this.addInteractivity();
+    }
+
+    observeSkills() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateSkillLevels(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.skill-category').forEach(category => {
+            observer.observe(category);
+        });
+    }
+
+    animateSkillLevels(category) {
+        const levelBars = category.querySelectorAll('.level-bar');
+        levelBars.forEach((bar, index) => {
+            setTimeout(() => {
+                bar.style.width = bar.style.getPropertyValue('--level') || '0%';
+            }, index * 200);
+        });
+    }
+
+    addInteractivity() {
+        this.skillIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', () => this.showSkillTooltip(icon));
+            icon.addEventListener('mouseleave', () => this.hideSkillTooltip(icon));
+            icon.addEventListener('click', () => this.skillClickEffect(icon));
+        });
+    }
+
+    showSkillTooltip(icon) {
+        const skillName = icon.dataset.skill;
+        if (!skillName) return;
+
+        const tooltip = document.createElement('div');
+        tooltip.className = 'skill-tooltip';
+        tooltip.textContent = `Click to learn more about ${skillName}`;
+        
+        tooltip.style.cssText = `
+            position: absolute;
+            background: var(--surface-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        `;
+
+        icon.appendChild(tooltip);
+        
+        setTimeout(() => {
+            tooltip.style.opacity = '1';
+        }, 10);
+    }
+
+    hideSkillTooltip(icon) {
+        const tooltip = icon.querySelector('.skill-tooltip');
+        if (tooltip) {
+            tooltip.style.opacity = '0';
+            setTimeout(() => {
+                tooltip.remove();
+            }, 300);
+        }
+    }
+
+    skillClickEffect(icon) {
+        const ripple = document.createElement('div');
+        ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            margin-top: -50px;
+            margin-left: -50px;
+        `;
+
+        icon.appendChild(ripple);
+
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+
+        if (!document.getElementById('ripple-styles')) {
+            const style = document.createElement('style');
+            style.id = 'ripple-styles';
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+}
+
 // Export for potential module usage
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         ThemeManager,
         NavigationManager,
         ProjectsManager,
-        ContactFormHandler
+        ContactFormHandler,
+        SkillAnimations
     };
 }

@@ -1,0 +1,32 @@
+<!-- AWS Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48">
+  <defs>
+    <linearGradient id="aws-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9900"/>
+      <stop offset="100%" style="stop-color:#FF7700"/>
+    </linearGradient>
+    <filter id="glow-aws">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- AWS cloud shape -->
+  <g filter="url(#glow-aws)">
+    <path d="M20,32 C16,32 12,28 12,24 C12,20 16,16 20,16 C22,12 26,10 30,10 C36,10 40,14 40,20 C44,20 48,24 48,28 C48,32 44,36 40,36 L24,36 C22,36 20,34 20,32 Z" fill="url(#aws-gradient)"/>
+    <!-- AWS text -->
+    <text x="32" y="28" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="white" font-weight="bold">AWS</text>
+    <!-- Animated connection points -->
+    <circle cx="18" cy="28" r="1" fill="white" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="46" cy="24" r="1" fill="white" opacity="0.8">
+      <animate attributeName="opacity" values="1;0.8;1" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="32" cy="44" r="1" fill="white" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
