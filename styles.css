@@ -215,7 +215,7 @@ body::before {
     overflow: hidden;
 }
 
-/* Animated Code Background */
+/* Custom Hero Code Matrix Background */
 .hero::before {
     content: '';
     position: absolute;
@@ -223,9 +223,12 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="code-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><text x="5" y="15" font-family="monospace" font-size="12" fill="rgba(59,130,246,0.1)">&lt;/&gt;</text><text x="5" y="35" font-family="monospace" font-size="10" fill="rgba(34,197,94,0.08)">{ }</text></pattern></defs><rect width="100%" height="100%" fill="url(%23code-pattern)"/></svg>');
-    opacity: 0.4;
-    animation: float 20s ease-in-out infinite;
+    background-image: url('./assets/hero-code-matrix.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    z-index: 1;
 }
 
 /* Floating Tech Icons */
@@ -261,7 +264,7 @@ body::before {
     gap: 4rem;
     align-items: center;
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 
 .hero-content {
@@ -502,6 +505,31 @@ section {
 }
 
 /* Skills Section */
+.skills {
+    position: relative;
+    overflow: hidden;
+}
+
+.skills::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./assets/skills-visualization.svg');
+    background-size: contain;
+    background-position: center right;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    z-index: 1;
+}
+
+.skills .container {
+    position: relative;
+    z-index: 10;
+}
+
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -555,6 +583,28 @@ section {
 /* Projects Section */
 .projects {
     background-color: var(--surface-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.projects::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./assets/projects-tech-pattern.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.projects .container {
+    position: relative;
+    z-index: 10;
 }
 
 .projects-grid {
