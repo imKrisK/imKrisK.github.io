@@ -709,6 +709,28 @@ section {
     color: var(--text-secondary);
 }
 
+.visitor-counter {
+    margin-top: 0.5rem;
+}
+
+.visitor-counter p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.visitor-counter i {
+    color: var(--primary-color);
+}
+
+#visitor-count {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
 .footer-social {
     display: flex;
     gap: 1rem;

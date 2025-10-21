@@ -474,6 +474,76 @@ class TypingAnimation {
     }
 }
 
+// Visitor Counter
+class VisitorCounter {
+    constructor() {
+        this.counterElement = document.getElementById('visitor-count');
+        this.storageKey = 'imkrisk-visitor-count';
+        this.init();
+    }
+
+    init() {
+        this.updateVisitorCount();
+        this.fetchExternalCount();
+    }
+
+    updateVisitorCount() {
+        // Get or initialize local visit count
+        let visitCount = localStorage.getItem(this.storageKey);
+        const lastVisit = localStorage.getItem(this.storageKey + '-date');
+        const today = new Date().toDateString();
+
+        if (!visitCount) {
+            visitCount = 1;
+        } else if (lastVisit !== today) {
+            // Count as new visit if it's a different day
+            visitCount = parseInt(visitCount) + 1;
+        }
+
+        localStorage.setItem(this.storageKey, visitCount.toString());
+        localStorage.setItem(this.storageKey + '-date', today);
+
+        // Display the count
+        this.displayCount(visitCount);
+    }
+
+    displayCount(count) {
+        if (this.counterElement) {
+            // Add some animation to the count
+            this.counterElement.style.opacity = '0';
+            setTimeout(() => {
+                this.counterElement.textContent = this.formatNumber(count);
+                this.counterElement.style.opacity = '1';
+            }, 200);
+        }
+    }
+
+    formatNumber(num) {
+        // Format number with commas for readability
+        return parseInt(num).toLocaleString();
+    }
+
+    async fetchExternalCount() {
+        try {
+            // Try to get a more accurate count from a free counter API
+            // Using CountAPI.xyz as a free option
+            const response = await fetch('https://api.countapi.xyz/hit/imkrisk.github.io/visits', {
+                method: 'GET'
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                if (data.value && data.value > 0) {
+                    this.displayCount(data.value);
+                }
+            }
+        } catch (error) {
+            console.log('External counter not available, using local count');
+            // Fallback to local count if external service fails
+        }
+    }
+}
+
 // Performance Optimization
 class PerformanceOptimizer {
     constructor() {
@@ -529,6 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ScrollAnimations();
     new ProjectsManager();
     new ContactFormHandler();
+    new VisitorCounter();
     new PerformanceOptimizer();
 
     // Initialize typing animation for hero subtitle
