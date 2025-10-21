@@ -644,18 +644,41 @@ class VisitorCounter {
             // Try to get a more accurate count from a free counter API
             // Using CountAPI.xyz as a free option
             const response = await fetch('https://api.countapi.xyz/hit/imkrisk.github.io/visits', {
-                method: 'GET'
+                method: 'GET',
+                timeout: 3000 // 3 second timeout
             });
             
             if (response.ok) {
                 const data = await response.json();
                 if (data.value && data.value > 0) {
                     this.displayCount(data.value);
+                    return;
                 }
             }
         } catch (error) {
-            console.log('External counter not available, using local count');
-            // Fallback to local count if external service fails
+            console.log('External counter service unavailable, using fallback');
+        }
+        
+        // Enhanced fallback: Use localStorage with session tracking
+        this.useFallbackCounter();
+    }
+    
+    useFallbackCounter() {
+        // Check if this is a new session
+        const sessionKey = 'visitor_session_' + new Date().toDateString();
+        const hasVisitedToday = localStorage.getItem(sessionKey);
+        
+        if (!hasVisitedToday) {
+            // New session for today, increment counter
+            const currentCount = parseInt(localStorage.getItem('visitor_count') || '100');
+            const newCount = currentCount + 1;
+            localStorage.setItem('visitor_count', newCount.toString());
+            localStorage.setItem(sessionKey, 'true');
+            this.displayCount(newCount);
+        } else {
+            // Existing session, just display current count
+            const currentCount = parseInt(localStorage.getItem('visitor_count') || '100');
+            this.displayCount(currentCount);
         }
     }
 }
