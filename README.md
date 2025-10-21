@@ -184,9 +184,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 📧 Contact
 
-- **Email**: [hello@imkrisk.dev](mailto:hello@imkrisk.dev)
-- **GitHub**: [@imKrisK](https://github.com/imKrisK)
-- **LinkedIn**: [imkrisk](https://linkedin.com/in/imkrisk)
+- **Email**: [imKrisK@icloud.com](mailto:imKrisK@icloud.com)
+- **GitHub**: [@imKrisK](https://github.com/imKrisK/README)
+- **LinkedIn**: [imkrisk](https://linkedin.com/in/kristofferkelly)
 - **Location**: Las Vegas, Nevada
 
 ---
