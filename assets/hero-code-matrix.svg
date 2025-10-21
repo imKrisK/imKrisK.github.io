@@ -62,7 +62,7 @@
       
       <!-- Properties -->
       <text x="20" y="110" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">name:</text>
-      <text x="80" y="110" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'Kristopher Krausz',</text>
+      <text x="80" y="110" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'Kristoffer Kelly',</text>
       
       <text x="20" y="135" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">role:</text>
       <text x="80" y="135" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'Full Stack Developer',</text>
