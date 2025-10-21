@@ -44,6 +44,19 @@
     --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
 }
 
+/* Dark theme background adjustments */
+[data-theme="dark"] body {
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.12) 0%, transparent 50%),
+        linear-gradient(135deg, transparent 0%, rgba(147, 51, 234, 0.08) 100%);
+}
+
+[data-theme="dark"] body::before {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><defs><pattern id="tech-grid-dark" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M0 0h60v60H0z" fill="none"/><path d="M30 0v60M0 30h60" stroke="rgba(59,130,246,0.08)" stroke-width="1"/><circle cx="30" cy="30" r="1" fill="rgba(34,197,94,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23tech-grid-dark)"/></svg>');
+    opacity: 0.6;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -53,7 +66,27 @@ body {
     line-height: 1.6;
     color: var(--text-primary);
     background-color: var(--background-color);
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, transparent 0%, rgba(147, 51, 234, 0.05) 100%);
+    background-attachment: fixed;
     transition: background-color var(--transition-medium), color var(--transition-medium);
+    position: relative;
+}
+
+/* Subtle tech pattern overlay for entire site */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><defs><pattern id="tech-grid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M0 0h60v60H0z" fill="none"/><path d="M30 0v60M0 30h60" stroke="rgba(59,130,246,0.03)" stroke-width="1"/><circle cx="30" cy="30" r="1" fill="rgba(34,197,94,0.05)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23tech-grid)"/></svg>');
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.4;
 }
 
 .container {
@@ -177,11 +210,12 @@ body {
     align-items: center;
     justify-content: center;
     padding: 100px 2rem 2rem;
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
     position: relative;
     overflow: hidden;
 }
 
+/* Animated Code Background */
 .hero::before {
     content: '';
     position: absolute;
@@ -189,8 +223,34 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="code-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><text x="5" y="15" font-family="monospace" font-size="12" fill="rgba(59,130,246,0.1)">&lt;/&gt;</text><text x="5" y="35" font-family="monospace" font-size="10" fill="rgba(34,197,94,0.08)">{ }</text></pattern></defs><rect width="100%" height="100%" fill="url(%23code-pattern)"/></svg>');
+    opacity: 0.4;
+    animation: float 20s ease-in-out infinite;
+}
+
+/* Floating Tech Icons */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><g fill="rgba(59,130,246,0.1)"><circle cx="50" cy="50" r="2"><animate attributeName="r" values="2;4;2" dur="3s" repeatCount="indefinite"/></circle><circle cx="350" cy="100" r="3"><animate attributeName="r" values="3;5;3" dur="4s" repeatCount="indefinite"/></circle><circle cx="100" cy="300" r="2.5"><animate attributeName="r" values="2.5;4.5;2.5" dur="3.5s" repeatCount="indefinite"/></circle><circle cx="300" cy="250" r="2"><animate attributeName="r" values="2;4;2" dur="2.8s" repeatCount="indefinite"/></circle><circle cx="150" cy="150" r="1.5"><animate attributeName="r" values="1.5;3;1.5" dur="4.2s" repeatCount="indefinite"/></circle></g><g fill="rgba(34,197,94,0.08)"><rect x="75" y="75" width="4" height="4" transform="rotate(45 77 77)"><animateTransform attributeName="transform" type="rotate" values="0 77 77;360 77 77" dur="8s" repeatCount="indefinite"/></rect><rect x="275" y="175" width="5" height="5" transform="rotate(45 277.5 177.5)"><animateTransform attributeName="transform" type="rotate" values="0 277.5 177.5;360 277.5 177.5" dur="10s" repeatCount="indefinite"/></rect><rect x="175" y="275" width="3" height="3" transform="rotate(45 176.5 276.5)"><animateTransform attributeName="transform" type="rotate" values="0 176.5 276.5;360 176.5 276.5" dur="6s" repeatCount="indefinite"/></rect></g></svg>');
     opacity: 0.3;
+    animation: drift 25s linear infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(-10px) translateX(-15px); }
+    75% { transform: translateY(-25px) translateX(5px); }
+}
+
+@keyframes drift {
+    0% { transform: translateX(-50px) translateY(-50px); }
+    100% { transform: translateX(50px) translateY(50px); }
 }
 
 .hero-container {

@@ -474,6 +474,97 @@ class TypingAnimation {
     }
 }
 
+// Dynamic Background Effects
+class BackgroundEffects {
+    constructor() {
+        this.canvas = null;
+        this.ctx = null;
+        this.particles = [];
+        this.techSymbols = ['</', '/>', '{}', '()', '[]', '=>', '!=', '++', '--', '&&', '||', 'fn', 'var', 'let', 'const'];
+        this.colors = ['rgba(59, 130, 246, 0.6)', 'rgba(34, 197, 94, 0.5)', 'rgba(147, 51, 234, 0.4)', 'rgba(245, 158, 11, 0.5)'];
+        this.init();
+    }
+
+    init() {
+        this.createCanvas();
+        this.createParticles();
+        this.animate();
+        window.addEventListener('resize', () => this.handleResize());
+    }
+
+    createCanvas() {
+        this.canvas = document.createElement('canvas');
+        this.canvas.style.position = 'fixed';
+        this.canvas.style.top = '0';
+        this.canvas.style.left = '0';
+        this.canvas.style.width = '100%';
+        this.canvas.style.height = '100%';
+        this.canvas.style.pointerEvents = 'none';
+        this.canvas.style.zIndex = '-1';
+        this.canvas.style.opacity = '0.7';
+        
+        this.ctx = this.canvas.getContext('2d');
+        this.handleResize();
+        
+        document.body.appendChild(this.canvas);
+    }
+
+    createParticles() {
+        this.particles = [];
+        const particleCount = Math.min(50, Math.floor(window.innerWidth / 25));
+        
+        for (let i = 0; i < particleCount; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                symbol: this.techSymbols[Math.floor(Math.random() * this.techSymbols.length)],
+                color: this.colors[Math.floor(Math.random() * this.colors.length)],
+                size: Math.random() * 12 + 8,
+                rotation: Math.random() * Math.PI * 2,
+                rotationSpeed: (Math.random() - 0.5) * 0.02
+            });
+        }
+    }
+
+    animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.particles.forEach((particle, index) => {
+            // Update position
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            particle.rotation += particle.rotationSpeed;
+            
+            // Wrap around edges
+            if (particle.x < -50) particle.x = this.canvas.width + 50;
+            if (particle.x > this.canvas.width + 50) particle.x = -50;
+            if (particle.y < -50) particle.y = this.canvas.height + 50;
+            if (particle.y > this.canvas.height + 50) particle.y = -50;
+            
+            // Draw particle
+            this.ctx.save();
+            this.ctx.translate(particle.x, particle.y);
+            this.ctx.rotate(particle.rotation);
+            this.ctx.font = `${particle.size}px 'Fira Code', monospace`;
+            this.ctx.fillStyle = particle.color;
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.fillText(particle.symbol, 0, 0);
+            this.ctx.restore();
+        });
+        
+        requestAnimationFrame(() => this.animate());
+    }
+
+    handleResize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        this.createParticles();
+    }
+}
+
 // Visitor Counter
 class VisitorCounter {
     constructor() {
@@ -600,6 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ProjectsManager();
     new ContactFormHandler();
     new VisitorCounter();
+    new BackgroundEffects();
     new PerformanceOptimizer();
 
     // Initialize typing animation for hero subtitle
