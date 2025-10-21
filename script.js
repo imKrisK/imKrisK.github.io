@@ -833,6 +833,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new BackgroundEffects();
     new PerformanceOptimizer();
     new SkillAnimations();
+    new ResumeDownloadManager();
 
     // Initialize typing animation for hero subtitle
     const heroSubtitle = document.querySelector('.hero-subtitle');
@@ -998,6 +999,185 @@ class SkillAnimations {
     }
 }
 
+// Resume Download Manager
+class ResumeDownloadManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupDownloadHandlers();
+        this.checkFileAvailability();
+    }
+
+    setupDownloadHandlers() {
+        const downloadButtons = document.querySelectorAll('.download-btn');
+        downloadButtons.forEach(button => {
+            button.addEventListener('click', (e) => this.handleDownload(e));
+        });
+    }
+
+    async handleDownload(e) {
+        e.preventDefault();
+        const button = e.currentTarget;
+        const href = button.getAttribute('href');
+        const filename = button.getAttribute('download');
+
+        // Add loading state
+        const originalContent = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Download...';
+        button.disabled = true;
+
+        try {
+            // Check if file exists
+            const response = await fetch(href, { method: 'HEAD' });
+            
+            if (response.ok) {
+                // File exists, proceed with download
+                const link = document.createElement('a');
+                link.href = href;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Success feedback
+                button.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                    button.disabled = false;
+                }, 2000);
+            } else {
+                throw new Error('File not found');
+            }
+        } catch (error) {
+            // File doesn't exist or error occurred
+            this.showFileNotAvailable(button, originalContent);
+        }
+    }
+
+    showFileNotAvailable(button, originalContent) {
+        button.innerHTML = '<i class="fas fa-exclamation-triangle"></i> File Not Available';
+        button.style.background = '#f59e0b';
+        
+        // Show notification
+        this.showNotification(
+            'Document Not Available', 
+            'The requested document is currently being updated. Please contact me directly for the latest version.',
+            'warning'
+        );
+
+        setTimeout(() => {
+            button.innerHTML = originalContent;
+            button.disabled = false;
+            button.style.background = '';
+        }, 3000);
+    }
+
+    showNotification(title, message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <h4>${title}</h4>
+                <p>${message}</p>
+                <button class="notification-close">×</button>
+            </div>
+        `;
+
+        // Add styles if not already present
+        if (!document.getElementById('notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: white;
+                    border-radius: 8px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                    border-left: 4px solid var(--primary-color);
+                    z-index: 1000;
+                    max-width: 400px;
+                    animation: slideIn 0.3s ease;
+                }
+                .notification-warning {
+                    border-left-color: #f59e0b;
+                }
+                .notification-content {
+                    padding: 1rem 1.5rem;
+                }
+                .notification-content h4 {
+                    margin: 0 0 0.5rem 0;
+                    color: var(--text-primary);
+                }
+                .notification-content p {
+                    margin: 0;
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                }
+                .notification-close {
+                    position: absolute;
+                    top: 0.5rem;
+                    right: 0.75rem;
+                    background: none;
+                    border: none;
+                    font-size: 1.25rem;
+                    cursor: pointer;
+                    color: var(--text-muted);
+                }
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        document.body.appendChild(notification);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 5000);
+
+        // Close button handler
+        notification.querySelector('.notification-close').addEventListener('click', () => {
+            notification.remove();
+        });
+    }
+
+    async checkFileAvailability() {
+        const downloadCards = document.querySelectorAll('.download-card');
+        
+        downloadCards.forEach(async (card) => {
+            const button = card.querySelector('.download-btn');
+            const href = button.getAttribute('href');
+            
+            try {
+                const response = await fetch(href, { method: 'HEAD' });
+                if (!response.ok) {
+                    // Add unavailable indicator
+                    const indicator = document.createElement('div');
+                    indicator.className = 'file-status file-unavailable';
+                    indicator.innerHTML = '<i class="fas fa-exclamation-circle"></i> Contact for latest version';
+                    card.querySelector('.card-details').appendChild(indicator);
+                }
+            } catch (error) {
+                // File doesn't exist, add indicator
+                const indicator = document.createElement('div');
+                indicator.className = 'file-status file-unavailable';
+                indicator.innerHTML = '<i class="fas fa-exclamation-circle"></i> Contact for latest version';
+                card.querySelector('.card-details').appendChild(indicator);
+            }
+        });
+    }
+}
+
 // Export for potential module usage
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -1005,6 +1185,7 @@ if (typeof module !== 'undefined' && module.exports) {
         NavigationManager,
         ProjectsManager,
         ContactFormHandler,
-        SkillAnimations
+        SkillAnimations,
+        ResumeDownloadManager
     };
 }
