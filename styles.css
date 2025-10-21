@@ -215,7 +215,7 @@ body::before {
     overflow: hidden;
 }
 
-/* Custom Hero Code Matrix Background */
+/* Clean Hero Background - Matrix background removed for better readability */
 .hero::before {
     content: '';
     position: absolute;
@@ -223,15 +223,14 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('./assets/hero-code-matrix.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.7;
+    background: linear-gradient(45deg, transparent 49%, rgba(59,130,246,0.02) 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(34,197,94,0.02) 50%, transparent 51%);
+    background-size: 60px 60px;
+    opacity: 0.8;
     z-index: 1;
 }
 
-/* Floating Tech Icons */
+/* Subtle Floating Tech Icons */
 .hero::after {
     content: '';
     position: absolute;
@@ -239,8 +238,8 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><g fill="rgba(59,130,246,0.1)"><circle cx="50" cy="50" r="2"><animate attributeName="r" values="2;4;2" dur="3s" repeatCount="indefinite"/></circle><circle cx="350" cy="100" r="3"><animate attributeName="r" values="3;5;3" dur="4s" repeatCount="indefinite"/></circle><circle cx="100" cy="300" r="2.5"><animate attributeName="r" values="2.5;4.5;2.5" dur="3.5s" repeatCount="indefinite"/></circle><circle cx="300" cy="250" r="2"><animate attributeName="r" values="2;4;2" dur="2.8s" repeatCount="indefinite"/></circle><circle cx="150" cy="150" r="1.5"><animate attributeName="r" values="1.5;3;1.5" dur="4.2s" repeatCount="indefinite"/></circle></g><g fill="rgba(34,197,94,0.08)"><rect x="75" y="75" width="4" height="4" transform="rotate(45 77 77)"><animateTransform attributeName="transform" type="rotate" values="0 77 77;360 77 77" dur="8s" repeatCount="indefinite"/></rect><rect x="275" y="175" width="5" height="5" transform="rotate(45 277.5 177.5)"><animateTransform attributeName="transform" type="rotate" values="0 277.5 177.5;360 277.5 177.5" dur="10s" repeatCount="indefinite"/></rect><rect x="175" y="275" width="3" height="3" transform="rotate(45 176.5 276.5)"><animateTransform attributeName="transform" type="rotate" values="0 176.5 276.5;360 176.5 276.5" dur="6s" repeatCount="indefinite"/></rect></g></svg>');
-    opacity: 0.3;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><g fill="rgba(59,130,246,0.06)"><circle cx="50" cy="50" r="2"><animate attributeName="r" values="2;4;2" dur="3s" repeatCount="indefinite"/></circle><circle cx="350" cy="100" r="3"><animate attributeName="r" values="3;5;3" dur="4s" repeatCount="indefinite"/></circle><circle cx="100" cy="300" r="2.5"><animate attributeName="r" values="2.5;4.5;2.5" dur="3.5s" repeatCount="indefinite"/></circle><circle cx="300" cy="250" r="2"><animate attributeName="r" values="2;4;2" dur="2.8s" repeatCount="indefinite"/></circle><circle cx="150" cy="150" r="1.5"><animate attributeName="r" values="1.5;3;1.5" dur="4.2s" repeatCount="indefinite"/></circle></g><g fill="rgba(34,197,94,0.04)"><rect x="75" y="75" width="4" height="4" transform="rotate(45 77 77)"><animateTransform attributeName="transform" type="rotate" values="0 77 77;360 77 77" dur="8s" repeatCount="indefinite"/></rect><rect x="275" y="175" width="5" height="5" transform="rotate(45 277.5 177.5)"><animateTransform attributeName="transform" type="rotate" values="0 277.5 177.5;360 277.5 177.5" dur="10s" repeatCount="indefinite"/></rect><rect x="175" y="275" width="3" height="3" transform="rotate(45 176.5 276.5)"><animateTransform attributeName="transform" type="rotate" values="0 176.5 276.5;360 176.5 276.5" dur="6s" repeatCount="indefinite"/></rect></g></svg>');
+    opacity: 0.15;
     animation: drift 25s linear infinite;
 }
 
