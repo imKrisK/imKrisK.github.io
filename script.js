@@ -169,10 +169,11 @@ class ProjectsManager {
         this.githubUsername = 'imKrisK';
         // Project categories and mapping for better organization
         this.projectCategories = {
-            'Web Applications & UI/UX': ['From-Concept-to-Completion', 'slider', 'book-writing-platform'],
+            'Web Applications & UI/UX': ['From-Concept-to-Completion', 'book-writing-platform', 'slider', 'TYPINGTESTPROJECT'],
             'Backend and API Development': ['mobilerestaurantAPI'],
             'Business & E-commerce': ['m7-localfoodtruck'],
-            'Desktop Application': ['FlouriteOS']
+            'Desktop & System Applications': ['FlouriteOS', 'playrec'],
+            'Interactive Tools': ['whatnotwheel', 'KK0100']
         };
         this.init();
     }
@@ -186,14 +187,16 @@ class ProjectsManager {
             const response = await fetch(`https://api.github.com/users/${this.githubUsername}/repos?sort=updated&per_page=20`);
             const repos = await response.json();
             
-            // Featured project names in order of importance
+            // Featured project names in order of importance (updated with latest projects)
             const featuredProjectNames = [
                 'From-Concept-to-Completion',
-                'slider', 
                 'book-writing-platform',
+                'playrec',
+                'FlouriteOS',
                 'mobilerestaurantAPI',
                 'm7-localfoodtruck',
-                'FlouriteOS'
+                'slider',
+                'TYPINGTESTPROJECT'
             ];
             
             // First, get the featured projects in the specified order
@@ -260,11 +263,15 @@ class ProjectsManager {
         // Enhanced technology detection for specific projects
         const projectTechMap = {
             'from-concept-to-completion': ['TypeScript', 'React', 'Next.js'],
-            'slider': ['JavaScript', 'CSS3', 'HTML5'],
             'book-writing-platform': ['TypeScript', 'Next.js', 'Tailwind CSS'],
+            'playrec': ['Makefile', 'System Tools', 'Game Capture'],
+            'flouriteos': ['Python', 'Tkinter', 'Desktop App'],
             'mobilerestaurantapi': ['Node.js', 'Express.js', 'JWT'],
             'm7-localfoodtruck': ['JavaScript', 'Stripe API', 'Vercel'],
-            'flouriteos': ['Python', 'Tkinter', 'Desktop App']
+            'slider': ['JavaScript', 'CSS3', 'HTML5'],
+            'typingtestproject': ['HTML5', 'CSS3', 'JavaScript'],
+            'whatnotwheel': ['JavaScript', 'Web App', 'Interactive'],
+            'kk0100': ['JavaScript', 'Web Development', 'Frontend']
         };
         
         // Check if we have specific tech stack for this project
@@ -312,18 +319,25 @@ class ProjectsManager {
                 githubUrl: 'https://github.com/imKrisK/From-Concept-to-Completion'
             },
             {
-                name: 'Interactive Slider Component',
-                description: 'Responsive, interactive slider component with smooth animations and touch support. Demonstrates advanced CSS and JavaScript techniques.',
-                languages: ['JavaScript', 'CSS3', 'HTML5'],
-                demoUrl: 'https://github.com/imKrisK/slider',
-                githubUrl: 'https://github.com/imKrisK/slider'
-            },
-            {
                 name: 'Book Writing Platform',
                 description: 'Collaborative writing platform built with Next.js 15, TypeScript, and Tailwind CSS. Features distraction-free writing environment and modern UI components.',
                 languages: ['TypeScript', 'Next.js', 'Tailwind CSS'],
                 demoUrl: 'https://github.com/imKrisK/book-writing-platform',
                 githubUrl: 'https://github.com/imKrisK/book-writing-platform'
+            },
+            {
+                name: 'PlayRec',
+                description: 'Practical tool for content creators, developers, and professionals who need reliable game capture capabilities. System-level development with Makefile configuration.',
+                languages: ['Makefile', 'System Tools', 'Game Capture'],
+                demoUrl: 'https://github.com/imKrisK/playrec',
+                githubUrl: 'https://github.com/imKrisK/playrec'
+            },
+            {
+                name: 'FlouriteOS',
+                description: 'Cross-platform desktop application developed with Python and Tkinter. Features modern desktop UI design and comprehensive technical documentation.',
+                languages: ['Python', 'Tkinter', 'Desktop App'],
+                demoUrl: 'https://github.com/imKrisK/FlouriteOS',
+                githubUrl: 'https://github.com/imKrisK/FlouriteOS'
             },
             {
                 name: 'Mobile Restaurant API',
@@ -340,11 +354,18 @@ class ProjectsManager {
                 githubUrl: 'https://github.com/imKrisK/m7-localfoodtruck'
             },
             {
-                name: 'FlouriteOS',
-                description: 'Cross-platform desktop application developed with Python and Tkinter. Features modern desktop UI design and comprehensive technical documentation.',
-                languages: ['Python', 'Tkinter', 'macOS'],
-                demoUrl: 'https://github.com/imKrisK/FlouriteOS',
-                githubUrl: 'https://github.com/imKrisK/FlouriteOS'
+                name: 'Interactive Slider Component',
+                description: 'Responsive, interactive slider component with smooth animations and touch support. Demonstrates advanced CSS and JavaScript techniques.',
+                languages: ['JavaScript', 'CSS3', 'HTML5'],
+                demoUrl: 'https://github.com/imKrisK/slider',
+                githubUrl: 'https://github.com/imKrisK/slider'
+            },
+            {
+                name: 'Typing Test Project',
+                description: 'Interactive typing test application built with pure HTML, CSS, and JavaScript. Features real-time WPM calculation and accuracy tracking.',
+                languages: ['HTML5', 'CSS3', 'JavaScript'],
+                demoUrl: 'https://github.com/imKrisK/TYPINGTESTPROJECT',
+                githubUrl: 'https://github.com/imKrisK/TYPINGTESTPROJECT'
             }
         ];
 
