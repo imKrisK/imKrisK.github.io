@@ -820,6 +820,9 @@ class PerformanceOptimizer {
     }
 }
 
+// Global instances for resize handling
+let skillProjectMapper = null;
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
@@ -834,6 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new PerformanceOptimizer();
     new SkillAnimations();
     new ResumeDownloadManager();
+    skillProjectMapper = new SkillProjectMapper();
 
     // Initialize typing animation for hero subtitle
     const heroSubtitle = document.querySelector('.hero-subtitle');
@@ -855,6 +859,13 @@ document.addEventListener('DOMContentLoaded', () => {
             heroContent.classList.add('fade-in-up');
             heroImage.classList.add('fade-in-up');
         }, 100);
+    }
+});
+
+// Handle window resize for connection system
+window.addEventListener('resize', () => {
+    if (skillProjectMapper) {
+        skillProjectMapper.handleResize();
     }
 });
 
@@ -1178,6 +1189,292 @@ class ResumeDownloadManager {
     }
 }
 
+// Phase 3: Skill-Project Interactive Mapping System
+class SkillProjectMapper {
+    constructor() {
+        this.connectionCanvas = document.getElementById('connection-canvas');
+        this.filterIndicator = document.getElementById('tech-filter-indicator');
+        this.filterText = document.getElementById('filter-text');
+        this.closeFilter = document.getElementById('close-filter');
+        this.activeFilter = null;
+        this.connections = [];
+        this.init();
+    }
+
+    init() {
+        // Wait for projects to load, then initialize
+        setTimeout(() => {
+            this.setupSkillClickHandlers();
+            this.setupProjectHoverEffects();
+            this.setupFilterControls();
+            this.createSkillTechMapping();
+        }, 1000);
+    }
+
+    createSkillTechMapping() {
+        // Map skill names to technology tags used in projects
+        this.skillTechMap = {
+            'HTML5': ['HTML5'],
+            'CSS3': ['CSS3'],
+            'JavaScript': ['JavaScript'],
+            'TypeScript': ['TypeScript'],
+            'React': ['React'],
+            'Vue.js': ['Vue.js'],
+            'Sass': ['Sass'],
+            'Tailwind CSS': ['Tailwind CSS'],
+            'Node.js': ['Node.js'],
+            'Express.js': ['Express.js'],
+            'Python': ['Python'],
+            'MongoDB': ['MongoDB'],
+            'Git': ['Git'],
+            'Docker': ['Docker'],
+            'AWS': ['AWS']
+        };
+    }
+
+    setupSkillClickHandlers() {
+        const skillIcons = document.querySelectorAll('.skill-icon');
+        skillIcons.forEach(skillIcon => {
+            skillIcon.classList.add('filterable');
+            skillIcon.addEventListener('click', (e) => {
+                e.preventDefault();
+                const skillName = skillIcon.querySelector('.skill-name').textContent;
+                this.filterProjectsBySkill(skillName);
+            });
+        });
+    }
+
+    setupProjectHoverEffects() {
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(projectCard => {
+            projectCard.addEventListener('mouseenter', () => {
+                this.highlightRelatedSkills(projectCard);
+            });
+            projectCard.addEventListener('mouseleave', () => {
+                this.clearSkillHighlights();
+            });
+        });
+    }
+
+    setupFilterControls() {
+        this.closeFilter.addEventListener('click', () => {
+            this.clearFilter();
+        });
+    }
+
+    filterProjectsBySkill(skillName) {
+        this.activeFilter = skillName;
+        const projectCards = document.querySelectorAll('.project-card');
+        const relatedProjects = [];
+
+        // Find projects that use this skill
+        projectCards.forEach(projectCard => {
+            const techTags = projectCard.querySelectorAll('.tech-tag');
+            const projectTechs = Array.from(techTags).map(tag => tag.textContent);
+            const hasSkill = this.doesProjectUseSkill(skillName, projectTechs);
+
+            if (hasSkill) {
+                projectCard.classList.add('highlighted');
+                projectCard.classList.remove('dimmed');
+                relatedProjects.push(projectCard);
+            } else {
+                projectCard.classList.add('dimmed');
+                projectCard.classList.remove('highlighted');
+            }
+        });
+
+        // Show filter indicator
+        this.showFilterIndicator(skillName, relatedProjects.length);
+
+        // Create animated connections
+        this.createConnectionAnimations(skillName, relatedProjects);
+
+        // Highlight the selected skill
+        const skillIcons = document.querySelectorAll('.skill-icon');
+        skillIcons.forEach(icon => {
+            const iconSkillName = icon.querySelector('.skill-name').textContent;
+            if (iconSkillName === skillName) {
+                icon.classList.add('connected');
+            } else {
+                icon.classList.remove('connected');
+            }
+        });
+    }
+
+    doesProjectUseSkill(skillName, projectTechs) {
+        const skillVariants = this.skillTechMap[skillName] || [skillName];
+        return skillVariants.some(variant => 
+            projectTechs.some(tech => 
+                tech.toLowerCase().includes(variant.toLowerCase()) ||
+                variant.toLowerCase().includes(tech.toLowerCase())
+            )
+        );
+    }
+
+    highlightRelatedSkills(projectCard) {
+        if (this.activeFilter) return; // Don't interfere with active filter
+
+        const techTags = projectCard.querySelectorAll('.tech-tag');
+        const projectTechs = Array.from(techTags).map(tag => tag.textContent);
+
+        const skillIcons = document.querySelectorAll('.skill-icon');
+        skillIcons.forEach(skillIcon => {
+            const skillName = skillIcon.querySelector('.skill-name').textContent;
+            if (this.doesProjectUseSkill(skillName, projectTechs)) {
+                skillIcon.classList.add('connected');
+            }
+        });
+    }
+
+    clearSkillHighlights() {
+        if (this.activeFilter) return; // Don't interfere with active filter
+
+        const skillIcons = document.querySelectorAll('.skill-icon');
+        skillIcons.forEach(skillIcon => {
+            skillIcon.classList.remove('connected');
+        });
+    }
+
+    createConnectionAnimations(skillName, relatedProjects) {
+        // Clear existing connections
+        this.clearConnections();
+
+        // Find the skill icon
+        const skillIcons = document.querySelectorAll('.skill-icon');
+        let sourceSkillIcon = null;
+        
+        skillIcons.forEach(icon => {
+            if (icon.querySelector('.skill-name').textContent === skillName) {
+                sourceSkillIcon = icon;
+            }
+        });
+
+        if (!sourceSkillIcon || relatedProjects.length === 0) return;
+
+        // Create connections to each related project
+        relatedProjects.forEach((projectCard, index) => {
+            setTimeout(() => {
+                this.createConnection(sourceSkillIcon, projectCard);
+                this.createCoffeeParticle(sourceSkillIcon, projectCard);
+            }, index * 200);
+        });
+    }
+
+    createConnection(skillIcon, projectCard) {
+        const skillRect = skillIcon.getBoundingClientRect();
+        const projectRect = projectCard.getBoundingClientRect();
+
+        const startX = skillRect.left + skillRect.width / 2;
+        const startY = skillRect.top + skillRect.height / 2;
+        const endX = projectRect.left + projectRect.width / 2;
+        const endY = projectRect.top + projectRect.height / 2;
+
+        const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+        const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI + 90;
+
+        const connection = document.createElement('div');
+        connection.className = 'connection-line';
+        connection.style.left = startX + 'px';
+        connection.style.top = startY + 'px';
+        connection.style.height = distance + 'px';
+        connection.style.transform = `rotate(${angle}deg)`;
+
+        this.connectionCanvas.appendChild(connection);
+        this.connections.push(connection);
+
+        // Animate the connection
+        setTimeout(() => {
+            connection.classList.add('active');
+        }, 100);
+    }
+
+    createCoffeeParticle(skillIcon, projectCard) {
+        const skillRect = skillIcon.getBoundingClientRect();
+        const projectRect = projectCard.getBoundingClientRect();
+
+        const startX = skillRect.left + skillRect.width / 2;
+        const startY = skillRect.top + skillRect.height / 2;
+        const endX = projectRect.left + projectRect.width / 2;
+        const endY = projectRect.top + projectRect.height / 2;
+
+        const particle = document.createElement('div');
+        particle.className = 'coffee-particle';
+        particle.style.left = startX + 'px';
+        particle.style.top = startY + 'px';
+
+        this.connectionCanvas.appendChild(particle);
+
+        // Animate particle travel
+        setTimeout(() => {
+            particle.classList.add('traveling');
+            particle.style.left = endX + 'px';
+            particle.style.top = endY + 'px';
+            particle.style.transition = 'all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        }, 100);
+
+        // Remove particle after animation
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 1600);
+    }
+
+    showFilterIndicator(skillName, projectCount) {
+        this.filterText.textContent = `Filtering by: ${skillName} (${projectCount} project${projectCount !== 1 ? 's' : ''})`;
+        this.filterIndicator.classList.add('active');
+    }
+
+    clearFilter() {
+        this.activeFilter = null;
+        
+        // Reset all projects
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.classList.remove('highlighted', 'dimmed');
+        });
+
+        // Reset all skills
+        const skillIcons = document.querySelectorAll('.skill-icon');
+        skillIcons.forEach(icon => {
+            icon.classList.remove('connected');
+        });
+
+        // Hide filter indicator
+        this.filterIndicator.classList.remove('active');
+
+        // Clear connections
+        this.clearConnections();
+    }
+
+    clearConnections() {
+        this.connections.forEach(connection => {
+            if (connection.parentNode) {
+                connection.parentNode.removeChild(connection);
+            }
+        });
+        this.connections = [];
+
+        // Clear any remaining particles
+        const particles = this.connectionCanvas.querySelectorAll('.coffee-particle');
+        particles.forEach(particle => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        });
+    }
+
+    // Method to handle window resize
+    handleResize() {
+        if (this.activeFilter) {
+            // Recreate connections with new positions
+            const skillName = this.activeFilter;
+            const relatedProjects = document.querySelectorAll('.project-card.highlighted');
+            this.createConnectionAnimations(skillName, Array.from(relatedProjects));
+        }
+    }
+}
+
 // Export for potential module usage
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -1186,6 +1483,7 @@ if (typeof module !== 'undefined' && module.exports) {
         ProjectsManager,
         ContactFormHandler,
         SkillAnimations,
-        ResumeDownloadManager
+        ResumeDownloadManager,
+        SkillProjectMapper
     };
 }
