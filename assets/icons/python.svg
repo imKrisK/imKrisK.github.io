@@ -1,0 +1,26 @@
+<!-- Python Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48">
+  <defs>
+    <linearGradient id="python-gradient1" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" style="stop-color:#3776AB"/>
+      <stop offset="100%" style="stop-color:#4B8BBE"/>
+    </linearGradient>
+    <linearGradient id="python-gradient2" x1="0%" y1="50%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD43B"/>
+      <stop offset="100%" style="stop-color:#FFF68F"/>
+    </linearGradient>
+    <filter id="glow-python">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Python logo shape -->
+  <path d="M24,8 C16,8 12,12 12,20 L12,24 L24,24 L24,26 L16,26 C8,26 4,30 4,38 C4,46 8,50 16,50 L20,50 L20,42 C20,34 24,30 32,30 L40,30 C48,30 52,26 52,18 L52,14 C52,6 48,2 40,2 L32,2 C24,2 20,6 20,14 L20,18 L32,18 L32,20 L24,20 Z" fill="url(#python-gradient1)" filter="url(#glow-python)"/>
+  <path d="M40,56 C48,56 52,52 52,44 L52,40 L40,40 L40,38 L48,38 C56,38 60,34 60,26 C60,18 56,14 48,14 L44,14 L44,22 C44,30 40,34 32,34 L24,34 C16,34 12,38 12,46 L12,50 C12,58 16,62 24,62 L32,62 C40,62 44,58 44,50 L44,46 L32,46 L32,44 L40,44 Z" fill="url(#python-gradient2)" filter="url(#glow-python)"/>
+  <!-- Python dots -->
+  <circle cx="28" cy="16" r="2" fill="white"/>
+  <circle cx="36" cy="48" r="2" fill="#3776AB"/>
+</svg>

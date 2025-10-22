@@ -1,0 +1,21 @@
+<!-- JavaScript Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48">
+  <defs>
+    <linearGradient id="js-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F7DF1E"/>
+      <stop offset="100%" style="stop-color:#FFC107"/>
+    </linearGradient>
+    <filter id="glow-js">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x="8" y="8" width="48" height="48" rx="6" fill="url(#js-gradient)" filter="url(#glow-js)"/>
+  <text x="32" y="40" text-anchor="middle" font-family="'Fira Code', monospace" font-size="24" fill="#323330" font-weight="bold">JS</text>
+  <circle cx="48" cy="16" r="3" fill="#FF6B35" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

@@ -1,0 +1,20 @@
+<!-- CSS3 Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48">
+  <defs>
+    <linearGradient id="css3-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1572B6"/>
+      <stop offset="100%" style="stop-color:#33A9DC"/>
+    </linearGradient>
+    <filter id="glow-css3">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <polygon points="12,8 16,54 32,58 48,54 52,8" fill="url(#css3-gradient)" filter="url(#glow-css3)"/>
+  <polygon points="32,12 32,52 44,49 47,12" fill="#2196F3" opacity="0.8"/>
+  <polygon points="20,20 44,20 43,24 32,24 32,28 42,28 41,32 32,32 32,36 40,36 39,44 32,46 32,50 25,48 24,36 28,36 28,40 32,42 36,40 36,36 24,36 22,28 32,28 32,24 21,24" fill="white"/>
+  <text x="32" y="18" text-anchor="middle" font-family="'Fira Code', monospace" font-size="8" fill="white" font-weight="bold">3</text>
+</svg>

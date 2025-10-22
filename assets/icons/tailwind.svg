@@ -1,0 +1,25 @@
+<!-- Tailwind CSS Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48">
+  <defs>
+    <linearGradient id="tailwind-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06B6D4"/>
+      <stop offset="100%" style="stop-color:#0891B2"/>
+    </linearGradient>
+    <filter id="glow-tailwind">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Tailwind wind wave -->
+  <g filter="url(#glow-tailwind)">
+    <path d="M12,32 Q20,16 32,32 Q44,16 52,32 Q44,48 32,32 Q20,48 12,32 Z" fill="url(#tailwind-gradient)"/>
+    <path d="M16,32 Q22,22 32,32 Q42,22 48,32 Q42,42 32,32 Q22,42 16,32 Z" fill="#67E8F9" opacity="0.6"/>
+    <!-- Animated wave -->
+    <path d="M8,32 Q16,20 24,32 Q32,20 40,32" stroke="#0EA5E9" stroke-width="2" fill="none" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

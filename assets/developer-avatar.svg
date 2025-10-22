@@ -1,0 +1,110 @@
+<!-- Personal Developer Avatar -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <defs>
+    <linearGradient id="avatar-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <filter id="avatar-glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="code-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <text x="2" y="12" font-family="'Fira Code', monospace" font-size="8" fill="rgba(255,255,255,0.1)">&lt;/&gt;</text>
+      <text x="2" y="18" font-family="'Fira Code', monospace" font-size="6" fill="rgba(59,130,246,0.1)">{ }</text>
+    </pattern>
+  </defs>
+  
+  <!-- Avatar background -->
+  <circle cx="150" cy="150" r="140" fill="url(#avatar-bg)" filter="url(#avatar-glow)"/>
+  <circle cx="150" cy="150" r="135" fill="url(#code-pattern)" opacity="0.3"/>
+  
+  <!-- Developer setup -->
+  <!-- Monitor/Screen -->
+  <rect x="80" y="100" width="140" height="90" rx="8" fill="#2D3748" stroke="#4A5568" stroke-width="2"/>
+  <rect x="85" y="105" width="130" height="75" rx="4" fill="#1A202C"/>
+  
+  <!-- Code on screen -->
+  <text x="90" y="120" font-family="'Fira Code', monospace" font-size="8" fill="#4FD1C7">const</text>
+  <text x="125" y="120" font-family="'Fira Code', monospace" font-size="8" fill="#63B3ED">imKrisK</text>
+  <text x="165" y="120" font-family="'Fira Code', monospace" font-size="8" fill="#F6E05E">=</text>
+  <text x="180" y="120" font-family="'Fira Code', monospace" font-size="8" fill="#68D391">{</text>
+  
+  <text x="95" y="135" font-family="'Fira Code', monospace" font-size="7" fill="#E53E3E">role:</text>
+  <text x="125" y="135" font-family="'Fira Code', monospace" font-size="7" fill="#9AE6B4">'Full Stack Dev',</text>
+  
+  <text x="95" y="150" font-family="'Fira Code', monospace" font-size="7" fill="#E53E3E">location:</text>
+  <text x="140" y="150" font-family="'Fira Code', monospace" font-size="7" fill="#9AE6B4">'Las Vegas',</text>
+  
+  <text x="95" y="165" font-family="'Fira Code', monospace" font-size="7" fill="#E53E3E">passion:</text>
+  <text x="135" y="165" font-family="'Fira Code', monospace" font-size="7" fill="#9AE6B4">'Innovation'</text>
+  
+  <text x="90" y="175" font-family="'Fira Code', monospace" font-size="8" fill="#68D391">};</text>
+  
+  <!-- Monitor stand -->
+  <rect x="145" y="190" width="10" height="20" fill="#4A5568"/>
+  <rect x="135" y="205" width="30" height="5" rx="2" fill="#4A5568"/>
+  
+  <!-- Keyboard -->
+  <rect x="90" y="220" width="120" height="25" rx="4" fill="#2D3748" stroke="#4A5568" stroke-width="1"/>
+  <g fill="#4A5568">
+    <rect x="95" y="225" width="8" height="6" rx="1"/>
+    <rect x="105" y="225" width="8" height="6" rx="1"/>
+    <rect x="115" y="225" width="8" height="6" rx="1"/>
+    <rect x="125" y="225" width="8" height="6" rx="1"/>
+    <rect x="135" y="225" width="8" height="6" rx="1"/>
+    <rect x="145" y="225" width="8" height="6" rx="1"/>
+    <rect x="155" y="225" width="8" height="6" rx="1"/>
+    <rect x="165" y="225" width="8" height="6" rx="1"/>
+    <rect x="175" y="225" width="8" height="6" rx="1"/>
+    <rect x="185" y="225" width="8" height="6" rx="1"/>
+    <rect x="195" y="225" width="8" height="6" rx="1"/>
+    
+    <rect x="100" y="235" width="8" height="6" rx="1"/>
+    <rect x="110" y="235" width="8" height="6" rx="1"/>
+    <rect x="120" y="235" width="40" height="6" rx="1"/>
+    <rect x="165" y="235" width="8" height="6" rx="1"/>
+    <rect x="175" y="235" width="8" height="6" rx="1"/>
+    <rect x="185" y="235" width="8" height="6" rx="1"/>
+  </g>
+  
+  <!-- Mouse -->
+  <ellipse cx="230" cy="235" rx="8" ry="12" fill="#2D3748" stroke="#4A5568" stroke-width="1"/>
+  <line x1="230" y1="228" x2="230" y2="240" stroke="#4A5568" stroke-width="0.5"/>
+  
+  <!-- Coffee cup -->
+  <ellipse cx="60" cy="180" rx="12" ry="15" fill="#8B4513"/>
+  <ellipse cx="60" cy="175" rx="10" ry="3" fill="#D2691E"/>
+  <path d="M72,175 Q78,175 78,185 Q78,195 72,195" stroke="#8B4513" stroke-width="2" fill="none"/>
+  
+  <!-- Steam animation -->
+  <g opacity="0.6">
+    <path d="M55,165 Q55,160 58,158" stroke="#E2E8F0" stroke-width="1" fill="none">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M60,165 Q60,160 63,158" stroke="#E2E8F0" stroke-width="1" fill="none">
+      <animate attributeName="opacity" values="1;0.6;1" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M65,165 Q65,160 68,158" stroke="#E2E8F0" stroke-width="1" fill="none">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="1.8s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Floating tech symbols -->
+  <g opacity="0.4">
+    <text x="250" y="80" font-family="'Fira Code', monospace" font-size="14" fill="#4FD1C7">&lt;/&gt;</text>
+    <text x="40" y="120" font-family="'Fira Code', monospace" font-size="12" fill="#63B3ED">{ }</text>
+    <text x="240" y="280" font-family="'Fira Code', monospace" font-size="16" fill="#F6E05E">=&gt;</text>
+    <text x="30" y="260" font-family="'Fira Code', monospace" font-size="10" fill="#68D391">npm</text>
+    
+    <animateTransform attributeName="transform" type="translate" values="0,0;5,-3;0,0" dur="6s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Glowing border effect -->
+  <circle cx="150" cy="150" r="140" fill="none" stroke="url(#avatar-bg)" stroke-width="3" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="4s" repeatCount="indefinite"/>
+  </circle>
+</svg>

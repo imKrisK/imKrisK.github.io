@@ -1,0 +1,83 @@
+<!-- Developer Skills Visualization -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <!-- Glowing effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Data flow gradient -->
+    <linearGradient id="dataFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgba(59,130,246,0.8);stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:rgba(59,130,246,0.8);stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:rgba(59,130,246,0.8);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="rgba(15,23,42,0.9)"/>
+  
+  <!-- Tech Stack Hexagons -->
+  <g transform="translate(100,100)">
+    <!-- Frontend Hexagon -->
+    <polygon points="60,0 120,35 120,105 60,140 0,105 0,35" fill="rgba(59,130,246,0.2)" stroke="rgba(59,130,246,0.6)" stroke-width="2" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="4s" repeatCount="indefinite"/>
+    </polygon>
+    <text x="60" y="65" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(59,130,246,0.9)">HTML</text>
+    <text x="60" y="80" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(59,130,246,0.9)">CSS</text>
+    <text x="60" y="95" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(59,130,246,0.9)">JS</text>
+  </g>
+  
+  <g transform="translate(300,100)">
+    <!-- Backend Hexagon -->
+    <polygon points="60,0 120,35 120,105 60,140 0,105 0,35" fill="rgba(34,197,94,0.2)" stroke="rgba(34,197,94,0.6)" stroke-width="2" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="5s" repeatCount="indefinite"/>
+    </polygon>
+    <text x="60" y="65" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(34,197,94,0.9)">Node</text>
+    <text x="60" y="80" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(34,197,94,0.9)">Python</text>
+    <text x="60" y="95" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(34,197,94,0.9)">APIs</text>
+  </g>
+  
+  <g transform="translate(500,100)">
+    <!-- Database Hexagon -->
+    <polygon points="60,0 120,35 120,105 60,140 0,105 0,35" fill="rgba(147,51,234,0.2)" stroke="rgba(147,51,234,0.6)" stroke-width="2" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="6s" repeatCount="indefinite"/>
+    </polygon>
+    <text x="60" y="70" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(147,51,234,0.9)">MongoDB</text>
+    <text x="60" y="85" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(147,51,234,0.9)">MySQL</text>
+  </g>
+  
+  <!-- Connecting lines with data flow -->
+  <line x1="220" y1="170" x2="300" y2="170" stroke="url(#dataFlow)" stroke-width="3">
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <line x1="420" y1="170" x2="500" y2="170" stroke="url(#dataFlow)" stroke-width="3">
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/>
+  </line>
+  
+  <!-- Code snippets floating -->
+  <g opacity="0.4">
+    <text x="50" y="350" font-family="'Fira Code', monospace" font-size="14" fill="rgba(59,130,246,0.7)">const portfolio = {</text>
+    <text x="70" y="370" font-family="'Fira Code', monospace" font-size="12" fill="rgba(34,197,94,0.6)">  skills: ['React', 'Node.js'],</text>
+    <text x="70" y="390" font-family="'Fira Code', monospace" font-size="12" fill="rgba(147,51,234,0.6)">  passion: 'Full Stack Dev',</text>
+    <text x="70" y="410" font-family="'Fira Code', monospace" font-size="12" fill="rgba(245,158,11,0.6)">  location: 'Las Vegas'</text>
+    <text x="50" y="430" font-family="'Fira Code', monospace" font-size="14" fill="rgba(59,130,246,0.7)">};</text>
+    
+    <animateTransform attributeName="transform" type="translate" values="0,0;10,-5;0,0" dur="8s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Binary rain effect -->
+  <g opacity="0.3">
+    <text x="650" y="50" font-family="'Fira Code', monospace" font-size="16" fill="rgba(34,197,94,0.5)">1</text>
+    <text x="670" y="100" font-family="'Fira Code', monospace" font-size="16" fill="rgba(34,197,94,0.4)">0</text>
+    <text x="690" y="150" font-family="'Fira Code', monospace" font-size="16" fill="rgba(34,197,94,0.6)">1</text>
+    <text x="710" y="200" font-family="'Fira Code', monospace" font-size="16" fill="rgba(34,197,94,0.3)">1</text>
+    <text x="730" y="250" font-family="'Fira Code', monospace" font-size="16" fill="rgba(34,197,94,0.5)">0</text>
+    
+    <animateTransform attributeName="transform" type="translate" values="0,-50;0,650" dur="8s" repeatCount="indefinite"/>
+  </g>
+</svg>

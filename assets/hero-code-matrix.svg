@@ -1,0 +1,126 @@
+<!-- Code Matrix Hero Background -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800">
+  <defs>
+    <!-- Matrix glow effect -->
+    <filter id="matrix-glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Dynamic gradient -->
+    <radialGradient id="hero-gradient" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" style="stop-color:rgba(15,23,42,0.8)">
+        <animate attributeName="stop-color" values="rgba(15,23,42,0.8);rgba(30,41,59,0.9);rgba(15,23,42,0.8)" dur="10s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:rgba(2,6,23,1)"/>
+    </radialGradient>
+    
+    <!-- Terminal cursor blink -->
+    <animate id="blink" attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </defs>
+  
+  <!-- Dynamic background -->
+  <rect width="100%" height="100%" fill="url(#hero-gradient)"/>
+  
+  <!-- Main terminal window -->
+  <g transform="translate(200,150)">
+    <!-- Terminal window -->
+    <rect width="800" height="400" rx="10" fill="rgba(15,23,42,0.9)" stroke="rgba(59,130,246,0.3)" stroke-width="2"/>
+    
+    <!-- Terminal header -->
+    <rect width="800" height="30" rx="10 10 0 0" fill="rgba(30,41,59,0.9)"/>
+    <circle cx="20" cy="15" r="5" fill="rgba(239,68,68,0.8)"/>
+    <circle cx="40" cy="15" r="5" fill="rgba(245,158,11,0.8)"/>
+    <circle cx="60" cy="15" r="5" fill="rgba(34,197,94,0.8)"/>
+    
+    <!-- Terminal title -->
+    <text x="400" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="rgba(148,163,184,0.8)">imKrisK@portfolio ~ % </text>
+    
+    <!-- Code content -->
+    <g transform="translate(20,50)">
+      <!-- Import statements -->
+      <text x="0" y="20" font-family="'Fira Code', monospace" font-size="14" fill="rgba(147,51,234,0.8)">import</text>
+      <text x="70" y="20" font-family="'Fira Code', monospace" font-size="14" fill="rgba(59,130,246,0.8)">{ Developer }</text>
+      <text x="200" y="20" font-family="'Fira Code', monospace" font-size="14" fill="rgba(147,51,234,0.8)">from</text>
+      <text x="250" y="20" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'Las Vegas';</text>
+      
+      <text x="0" y="45" font-family="'Fira Code', monospace" font-size="14" fill="rgba(147,51,234,0.8)">import</text>
+      <text x="70" y="45" font-family="'Fira Code', monospace" font-size="14" fill="rgba(59,130,246,0.8)">{ Skills }</text>
+      <text x="170" y="45" font-family="'Fira Code', monospace" font-size="14" fill="rgba(147,51,234,0.8)">from</text>
+      <text x="220" y="45" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'FullStack';</text>
+      
+      <!-- Main function -->
+      <text x="0" y="85" font-family="'Fira Code', monospace" font-size="14" fill="rgba(245,158,11,0.8)">const</text>
+      <text x="70" y="85" font-family="'Fira Code', monospace" font-size="14" fill="rgba(59,130,246,0.8)">imKrisK</text>
+      <text x="150" y="85" font-family="'Fira Code', monospace" font-size="14" fill="rgba(248,113,113,0.8)">=</text>
+      <text x="180" y="85" font-family="'Fira Code', monospace" font-size="14" fill="rgba(245,158,11,0.8)">new</text>
+      <text x="220" y="85" font-family="'Fira Code', monospace" font-size="14" fill="rgba(59,130,246,0.8)">Developer</text>
+      <text x="320" y="85" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.8)">({</text>
+      
+      <!-- Properties -->
+      <text x="20" y="110" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">name:</text>
+      <text x="80" y="110" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'Kristoffer Kelly',</text>
+      
+      <text x="20" y="135" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">role:</text>
+      <text x="80" y="135" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'Full Stack Developer',</text>
+      
+      <text x="20" y="160" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">skills:</text>
+      <text x="90" y="160" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.8)">[</text>
+      <text x="110" y="160" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'React'</text>
+      <text x="170" y="160" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.8)">,</text>
+      <text x="190" y="160" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'Node.js'</text>
+      <text x="260" y="160" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.8)">,</text>
+      <text x="280" y="160" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'MongoDB'</text>
+      <text x="360" y="160" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.8)">],</text>
+      
+      <text x="20" y="185" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">passion:</text>
+      <text x="90" y="185" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'Building Amazing Web Experiences',</text>
+      
+      <text x="20" y="210" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">contact:</text>
+      <text x="100" y="210" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'imKrisK@icloud.com',</text>
+      
+      <text x="20" y="235" font-family="'Fira Code', monospace" font-size="14" fill="rgba(245,158,11,0.8)">build:</text>
+      <text x="80" y="235" font-family="'Fira Code', monospace" font-size="14" fill="rgba(147,51,234,0.8)">function</text>
+      <text x="160" y="235" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.8)">() {</text>
+      <text x="230" y="235" font-family="'Fira Code', monospace" font-size="14" fill="rgba(245,158,11,0.8)">return</text>
+      <text x="300" y="235" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">'🚀 Innovation'</text>
+      <text x="420" y="235" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.8)">}</text>
+      
+      <!-- Closing -->
+      <text x="0" y="260" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.8)">});</text>
+      
+      <!-- Command prompt with blinking cursor -->
+      <text x="0" y="300" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">imKrisK@portfolio</text>
+      <text x="150" y="300" font-family="'Fira Code', monospace" font-size="14" fill="rgba(148,163,184,0.6)">~</text>
+      <text x="170" y="300" font-family="'Fira Code', monospace" font-size="14" fill="rgba(59,130,246,0.8)">%</text>
+      <text x="200" y="300" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">./explore</text>
+      <text x="300" y="300" font-family="'Fira Code', monospace" font-size="14" fill="rgba(34,197,94,0.8)">--portfolio</text>
+      
+      <!-- Blinking cursor -->
+      <rect x="420" y="285" width="2" height="18" fill="rgba(34,197,94,0.8)">
+        <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+  </g>
+  
+  <!-- Floating code particles -->
+  <g opacity="0.3">
+    <!-- HTML tags -->
+    <text x="50" y="100" font-family="'Fira Code', monospace" font-size="18" fill="rgba(239,68,68,0.4)" filter="url(#matrix-glow)">&lt;div&gt;</text>
+    <text x="1200" y="200" font-family="'Fira Code', monospace" font-size="16" fill="rgba(239,68,68,0.3)" filter="url(#matrix-glow)">&lt;/html&gt;</text>
+    
+    <!-- CSS selectors -->
+    <text x="100" y="700" font-family="'Fira Code', monospace" font-size="20" fill="rgba(59,130,246,0.4)" filter="url(#matrix-glow)">{ }</text>
+    <text x="1100" y="650" font-family="'Fira Code', monospace" font-size="18" fill="rgba(59,130,246,0.3)" filter="url(#matrix-glow)">.class</text>
+    
+    <!-- JS syntax -->
+    <text x="30" y="400" font-family="'Fira Code', monospace" font-size="22" fill="rgba(245,158,11,0.4)" filter="url(#matrix-glow)">=&gt;</text>
+    <text x="1250" y="450" font-family="'Fira Code', monospace" font-size="19" fill="rgba(245,158,11,0.3)" filter="url(#matrix-glow)">async</text>
+    
+    <!-- Animations for floating elements -->
+    <animateTransform attributeName="transform" type="translate" values="0,0;20,-10;0,0" dur="12s" repeatCount="indefinite"/>
+  </g>
+</svg>

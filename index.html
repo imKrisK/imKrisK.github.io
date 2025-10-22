@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imKrisK - Full Stack Developer</title>
+    <meta name="description" content="Results-oriented developer with expertise in developing scalable web applications and designing user-centric interfaces.">
+    <meta name="keywords" content="web developer, full stack, JavaScript, React, Node.js, portfolio">
+    <meta name="author" content="imKrisK">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://imkrisk.github.io/">
+    <meta property="og:title" content="imKrisK - Full Stack Developer">
+    <meta property="og:description" content="Results-oriented developer with expertise in developing scalable web applications and designing user-centric interfaces.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://imkrisk.github.io/">
+    <meta property="twitter:title" content="imKrisK - Full Stack Developer">
+    <meta property="twitter:description" content="Results-oriented developer with expertise in developing scalable web applications and designing user-centric interfaces.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">imKrisK</a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#resume" class="nav-link">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-greeting">
+                    <span class="greeting-text">Hello World! 👋</span>
+                    <div class="terminal-cursor">_</div>
+                </div>
+                <h1 class="hero-title">
+                    I'm <span class="highlight">Kristoffer Kelly</span>
+                </h1>
+                <div class="hero-tags">
+                    <span class="tag">🚀 Full Stack Developer</span>
+                    <span class="tag">🌟 Innovation Enthusiast</span>
+                    <span class="tag">🎰 Las Vegas Based</span>
+                </div>
+                <p class="hero-description">
+                    I like turning coffee into code and ideas into digital reality. Experienced Full Stack Developer specializing in modern web technologies and scalable solutions. 
+                    I combine technical expertise with creative problem-solving to deliver high-quality applications 
+                    that drive business success and enhance user experiences.
+                </p>
+                <div class="coffee-to-code-container">
+                    <img src="./assets/coffee-to-code-animation.svg" alt="Coffee to Code Animation" class="coffee-animation">
+                </div>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Explore My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-coffee"></i>
+                        Let's Chat
+                    </a>
+                </div>
+                <div class="hero-social">
+                    <a href="https://github.com/imKrisK" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/kristofferkelly" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:imKrisK@icloud.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-avatar">
+                    <img src="./assets/developer-avatar.svg" alt="Developer Setup" class="avatar-image">
+                </div>
+                <div class="floating-elements">
+                    <div class="floating-element" style="--delay: 0s; --duration: 8s;">💻</div>
+                    <div class="floating-element" style="--delay: 2s; --duration: 10s;">⚡</div>
+                    <div class="floating-element" style="--delay: 4s; --duration: 12s;">🎨</div>
+                    <div class="floating-element" style="--delay: 6s; --duration: 9s;">🔥</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="visitor-count-hero">--</span>
+                        <span class="stat-label">Visitors</span>
+                    </div>
+                    
+                </div>
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I like turning coffee into code and ideas into digital reality. As a Full Stack Developer, 
+                        I love building web applications that don't just work—they work beautifully. From that first 
+                        spark of an idea to the final deployment celebration, I'm there for the entire journey, 
+                        crafting every pixel and optimizing every query.
+                    </p>
+                    <p>
+                        My playground is the JavaScript universe—React for those smooth user interfaces, Node.js for 
+                        the backend magic, and MongoDB for data that actually makes sense. I also speak fluent Python 
+                        and have a growing romance with cloud technologies. Here in Las Vegas, I'm constantly inspired 
+                        to create experiences that are as engaging as the city itself, solving real problems with 
+                        elegant, maintainable code.
+                    </p>
+                    <p>
+                        Whether I'm crafting interactive frontends that make users smile, architecting APIs that 
+                        developers actually enjoy working with, or setting up DevOps pipelines that just work™, 
+                        I bring curiosity, creativity, and a commitment to quality. Because great code isn't just 
+                        functional—it tells a story.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>25+</h3>
+                            <p>Projects Completed</p>
+                        </div>
+                        <!-- <div class="stat">
+                            <h3>5+</h3>
+                            <p>Years Experience</p>
+                        </div> -->
+                        <div class="stat">
+                            <h3>100%</h3>
+                            <p>Client Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume/CV Download Section -->
+    <section id="resume" class="resume-download">
+        <div class="container">
+            <div class="resume-content">
+                <div class="resume-header">
+                    <h2 class="section-title">Professional Documents</h2>
+                    <p class="section-subtitle">Download my resume and CV for detailed information about my experience and qualifications</p>
+                </div>
+                
+                <div class="download-cards">
+                    <div class="download-card resume-card">
+                        <div class="card-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Resume</h3>
+                            <p>Concise overview of my skills, experience, and key achievements in software development.</p>
+                            <div class="card-details">
+                                <span class="detail-item"><i class="fas fa-clock"></i> Updated October 2025</span>
+                                <span class="detail-item"><i class="fas fa-file-pdf"></i> PDF Format</span>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <a href="./assets/documents/Kristoffer_Kelly_Resume.pdf" download="Kristoffer_Kelly_Resume.pdf" class="btn btn-primary download-btn">
+                                <i class="fas fa-download"></i>
+                                Download Resume
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="download-card cv-card">
+                        <div class="card-icon">
+                            <i class="fas fa-scroll"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Curriculum Vitae</h3>
+                            <p>Comprehensive document detailing my complete professional journey, education, and accomplishments.</p>
+                            <div class="card-details">
+                                <span class="detail-item"><i class="fas fa-clock"></i> Updated October 2025</span>
+                                <span class="detail-item"><i class="fas fa-file-pdf"></i> PDF Format</span>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <a href="./assets/documents/Kristoffer_Kelly_CV.pdf" download="Kristoffer_Kelly_CV.pdf" class="btn btn-secondary download-btn">
+                                <i class="fas fa-download"></i>
+                                Download CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="resume-note">
+                    <div class="note-content">
+                        <i class="fas fa-info-circle"></i>
+                        <p>For the most current version or specific role requirements, feel free to <a href="#contact">contact me</a> directly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="skills-header">
+                <h2 class="section-title">My Tech Arsenal ⚡</h2>
+                <p class="section-subtitle">The tools and technologies I use to bring ideas to life</p>
+            </div>
+            
+            <div class="skills-showcase">
+                <!-- Frontend Skills -->
+                <div class="skill-category frontend-skills">
+                    <h3 class="category-title">
+                        <i class="fas fa-palette"></i>
+                        Frontend Magic
+                    </h3>
+                    <div class="skill-icons">
+                        <div class="skill-icon" data-skill="HTML5">
+                            <img src="./assets/icons/html5.svg" alt="HTML5">
+                            <span class="skill-name">HTML5</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="CSS3">
+                            <img src="./assets/icons/css3.svg" alt="CSS3">
+                            <span class="skill-name">CSS3</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="JavaScript">
+                            <img src="./assets/icons/javascript.svg" alt="JavaScript">
+                            <span class="skill-name">JavaScript</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="TypeScript">
+                            <img src="./assets/icons/typescript.svg" alt="TypeScript">
+                            <span class="skill-name">TypeScript</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="React">
+                            <img src="./assets/icons/react.svg" alt="React">
+                            <span class="skill-name">React</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="Vue.js">
+                            <img src="./assets/icons/vuejs.svg" alt="Vue.js">
+                            <span class="skill-name">Vue.js</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 82%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="Sass">
+                            <img src="./assets/icons/sass.svg" alt="Sass">
+                            <span class="skill-name">Sass</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="Tailwind CSS">
+                            <img src="./assets/icons/tailwind.svg" alt="Tailwind CSS">
+                            <span class="skill-name">Tailwind</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Skills -->
+                <div class="skill-category backend-skills">
+                    <h3 class="category-title">
+                        <i class="fas fa-server"></i>
+                        Backend Power
+                    </h3>
+                    <div class="skill-icons">
+                        <div class="skill-icon" data-skill="Node.js">
+                            <img src="./assets/icons/nodejs.svg" alt="Node.js">
+                            <span class="skill-name">Node.js</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="Express.js">
+                            <img src="./assets/icons/express.svg" alt="Express.js">
+                            <span class="skill-name">Express.js</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="Python">
+                            <img src="./assets/icons/python.svg" alt="Python">
+                            <span class="skill-name">Python</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="MongoDB">
+                            <img src="./assets/icons/mongodb.svg" alt="MongoDB">
+                            <span class="skill-name">MongoDB</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 87%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & DevOps -->
+                <div class="skill-category tools-skills">
+                    <h3 class="category-title">
+                        <i class="fas fa-tools"></i>
+                        Tools & DevOps
+                    </h3>
+                    <div class="skill-icons">
+                        <div class="skill-icon" data-skill="Git">
+                            <img src="./assets/icons/git.svg" alt="Git">
+                            <span class="skill-name">Git</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 93%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="Docker">
+                            <img src="./assets/icons/docker.svg" alt="Docker">
+                            <span class="skill-name">Docker</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-icon" data-skill="AWS">
+                            <img src="./assets/icons/aws.svg" alt="AWS">
+                            <span class="skill-name">AWS</span>
+                            <div class="skill-level">
+                                <div class="level-bar" style="--level: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Philosophy -->
+            <div class="skills-philosophy">
+                <div class="philosophy-content">
+                    <h4>My Development Philosophy</h4>
+                    <p>"Quality code is not just about functionality—it's about maintainability, scalability, and user-centric design. I believe in writing clean, documented code that tells a clear story and delivers exceptional value."</p>
+                </div>
+                <div class="currently-learning">
+                    <h4>Currently Exploring</h4>
+                    <div class="learning-tags">
+                        <span class="learning-tag">🤖 AI/ML Integration</span>
+                        <span class="learning-tag">☁️ Cloud Architecture</span>
+                        <span class="learning-tag">⚡ Performance Optimization</span>
+                        <span class="learning-tag">🔐 Cybersecurity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Here are some of my recent projects that showcase my skills and experience.</p>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects will be loaded dynamically -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-code"></i>
+                            <span>Featured Project</span>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="https://github.com/imKrisK" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a href="https://github.com/imKrisK" class="project-github" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Portfolio Showcase</h3>
+                        <p>A comprehensive collection of projects demonstrating full-stack development capabilities, modern design principles, and innovative solutions.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="projects-cta">
+                <a href="https://github.com/imKrisK" target="_blank" class="btn btn-outline">
+                    View All Projects on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">
+                I'm always open to discussing new opportunities and interesting projects.
+            </p>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Location</h3>
+                            <p>Las Vegas, Nevada</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p><a href="mailto:imKrisK@icloud.com">imKrisK@icloud.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>GitHub</h3>
+                            <p><a href="https://github.com/imKrisK" target="_blank">github.com/imKrisK</a></p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; imacKris. All rights reserved.</p>
+                    <div class="visitor-counter">
+                        <p>
+                            <i class="fas fa-eye"></i>
+                            <span id="visitor-count">Loading...</span> visitors
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/imKrisK" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/kristofferkelly" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:imKrisK@icloud.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
