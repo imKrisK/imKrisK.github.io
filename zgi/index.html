@@ -984,13 +984,18 @@ cp voices/*.mp3 /media/microSD/
         progressTimer: null,
 
         play(trackIndex) {
-            if (this.state === 'PLAYING') this.stop();
             const track = ZGI_TRACKS[trackIndex];
             if (!track) return;
             if (!window.speechSynthesis) { zgiLog('[ZGI] ⚠ Web Speech API not available in this browser', 'warn'); return; }
 
+            // Always cancel first — Chrome silently ignores speak() if engine is paused/stuck
+            window.speechSynthesis.cancel();
+            clearInterval(this.progressTimer);
+            if (this.currentTrack !== null) this._resetUI(this.currentTrack);
+
             this.state = 'PLAYING';
             this.currentTrack = trackIndex;
+            this.utterance = null;
             this._updateUI(trackIndex);
 
             const utt = new SpeechSynthesisUtterance(track.text);
@@ -1009,7 +1014,8 @@ cp voices/*.mp3 /media/microSD/
             utt.onerror = (e) => { this.state = 'IDLE'; this._resetUI(trackIndex); zgiLog(`[ZGI] ⚠ Speech error: ${e.error}`, 'warn'); };
 
             this.utterance = utt;
-            window.speechSynthesis.speak(utt);
+            // 50ms delay lets Chrome settle after cancel() — without this, speak() is silently dropped
+            setTimeout(() => { if (this.state === 'PLAYING') window.speechSynthesis.speak(utt); }, 50);
 
             // Animate progress bar (estimate ~120wpm, ~5 chars/word)
             const estMs = (track.text.split(' ').length / 120) * 60000;
@@ -1096,11 +1102,11 @@ cp voices/*.mp3 /media/microSD/
         if (key in keyMap) DFPlayer.play(keyMap[key]);
     });
 
-    // ── Init voices (Chrome needs a gesture first) ──
-    window.speechSynthesis && window.speechSynthesis.getVoices();
-    document.body.addEventListener('click', () => {
-        if (window.speechSynthesis) window.speechSynthesis.getVoices();
-    }, { once: true });
+    // ── Init voices (Chrome loads async via voiceschanged event) ──
+    if (window.speechSynthesis) {
+        window.speechSynthesis.getVoices(); // warm up
+        window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
+    }
 
     // ── Live metric drift ──
     function drift(id, base, variance, decimals, suffix) {
