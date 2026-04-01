@@ -585,7 +585,7 @@
                 <div>
                     <div class="text-xs uppercase tracking-widest text-white/30 mb-3">Filed March 31, 2026</div>
                     <h2 class="text-3xl font-black mb-4">USPTO Non-Provisional Patent</h2>
-                    <p class="text-white/50 mb-6 leading-relaxed">22 claims covering stateless multi-instance AI coordination. IPC G06F 9/541. Inventor: Kristoffer Kelly Monk. Customer #216273.</p>
+                    <p class="text-white/50 mb-6 leading-relaxed">22 claims covering stateless multi-instance AI coordination. IPC G06F 9/541. Inventor: Kristoffer Kelly. Customer #216273.</p>
                     <div class="grid grid-cols-2 gap-4 text-sm">
                         <div>
                             <div class="text-white/30 text-xs uppercase tracking-wider mb-1">Claims</div>
@@ -619,6 +619,58 @@
                         <div class="text-white/70 text-xs">13,701 bilateral heritage files committed March 31, 2026 — private repo timestamp proof</div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- ZGI TEST DRIVE — embedded in patents section -->
+        <div class="mt-8 border border-yellow-400/20 rounded-2xl p-6 relative overflow-hidden" style="background: rgba(255,215,0,0.03)">
+            <div class="scan-overlay"></div>
+            <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+                <div>
+                    <div class="text-xs uppercase tracking-widest text-yellow-400/60 mb-1">Live Demo — No Install Required</div>
+                    <h3 class="text-lg font-black text-white">Hear What This Patent Protects</h3>
+                    <p class="text-white/40 text-xs mt-1">ZGI speaks directly about the technology. Web Speech API · Click any track.</p>
+                </div>
+                <a href="#embodiment" class="text-xs font-mono text-cyan-400/60 hover:text-cyan-400 transition uppercase tracking-wider border border-cyan-400/20 px-3 py-1 rounded hover:border-cyan-400/50">▼ Full 20-Track Registry</a>
+            </div>
+
+            <!-- 4 curated patent tracks -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+                <button onclick="DFPlayer.play(0)"
+                    class="text-left px-4 py-3 rounded-xl border border-yellow-400/20 hover:border-yellow-400/60 transition group"
+                    style="background: rgba(255,215,0,0.04)">
+                    <div class="text-yellow-400/50 text-xs font-mono mb-1 group-hover:text-yellow-400 transition">001</div>
+                    <div class="text-white/70 text-xs font-semibold group-hover:text-white transition">ZGI Introduction</div>
+                    <div class="text-white/30 text-xs mt-1">"I am not a chatbot."</div>
+                </button>
+                <button onclick="DFPlayer.play(6)"
+                    class="text-left px-4 py-3 rounded-xl border border-yellow-400/20 hover:border-yellow-400/60 transition group"
+                    style="background: rgba(255,215,0,0.04)">
+                    <div class="text-yellow-400/50 text-xs font-mono mb-1 group-hover:text-yellow-400 transition">007</div>
+                    <div class="text-white/70 text-xs font-semibold group-hover:text-white transition">Bilateral Heritage</div>
+                    <div class="text-white/30 text-xs mt-1">"109,935 transmissions."</div>
+                </button>
+                <button onclick="DFPlayer.play(15)"
+                    class="text-left px-4 py-3 rounded-xl border border-yellow-400/20 hover:border-yellow-400/60 transition group"
+                    style="background: rgba(255,215,0,0.04)">
+                    <div class="text-yellow-400/50 text-xs font-mono mb-1 group-hover:text-yellow-400 transition">016</div>
+                    <div class="text-white/70 text-xs font-semibold group-hover:text-white transition">Patent Status</div>
+                    <div class="text-white/30 text-xs mt-1">"22 claims filed."</div>
+                </button>
+                <button onclick="DFPlayer.play(19)"
+                    class="text-left px-4 py-3 rounded-xl border border-yellow-400/20 hover:border-yellow-400/60 transition group"
+                    style="background: rgba(255,215,0,0.06); border-color: rgba(255,215,0,0.35)">
+                    <div class="text-yellow-400/70 text-xs font-mono mb-1 group-hover:text-yellow-400 transition">020 ✦</div>
+                    <div class="text-white/80 text-xs font-semibold group-hover:text-white transition">Invitation</div>
+                    <div class="text-white/30 text-xs mt-1">"Let us speak together."</div>
+                </button>
+            </div>
+
+            <!-- Minimal status bar shared with main engine -->
+            <div class="flex items-center gap-3 text-xs font-mono text-white/30">
+                <div class="w-1.5 h-1.5 rounded-full bg-yellow-400/50" style="animation: pulse-cyan 2s infinite"></div>
+                <span>DFPlayer protocol · Web Speech API · Pentagon IPC</span>
+                <span class="ml-auto text-yellow-400/40">Press <kbd class="px-1 py-0.5 rounded border border-white/10 text-white/40">Space</kbd> to stop</span>
             </div>
         </div>
     </section>
