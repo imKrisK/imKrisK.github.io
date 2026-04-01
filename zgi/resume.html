@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kristoffer Kelly — 2D/3D Design Expert &amp; AI Systems Builder</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --border: rgba(255,255,255,0.08);
+    --cyan: #00d4ff;
+    --gold: #f5c842;
+    --purple: #a78bfa;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 24px 0;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .header-text .role {
+    color: var(--cyan);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .header-text .location {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 2px;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .badge-cyan  { color: var(--cyan);   border-color: var(--cyan);   background: rgba(0,212,255,0.08); }
+  .badge-gold  { color: var(--gold);   border-color: var(--gold);   background: rgba(245,200,66,0.08); }
+  .badge-purple{ color: var(--purple); border-color: var(--purple); background: rgba(167,139,250,0.08); }
+
+  /* ── Nav ── */
+  nav {
+    max-width: 860px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  .tab {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+  /* ── Main ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 24px 80px;
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: border-color 0.25s;
+  }
+  .card:hover { border-color: rgba(0,212,255,0.2); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .card .meta {
+    font-size: 0.78rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .card .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+  }
+
+  /* ── Stat grid ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+
+  .stat-box .num {
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-box .label {
+    font-size: 0.73rem;
+    color: var(--muted);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Skill bars ── */
+  .skill-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .skill-name {
+    font-size: 0.85rem;
+    width: 180px;
+    flex-shrink: 0;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    width: 0;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .skill-pct {
+    font-size: 0.75rem;
+    color: var(--muted);
+    width: 36px;
+    text-align: right;
+  }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .tl-item {
+    padding-left: 32px;
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--cyan);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--cyan);
+  }
+
+  .tl-item .year {
+    font-size: 0.72rem;
+    color: var(--cyan);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
+  .tl-item h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .tl-item p {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── CTA ── */
+  .cta-block {
+    background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(167,139,250,0.08));
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 16px;
+    padding: 36px 32px;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .cta-block h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .cta-block p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    border: none;
+  }
+  .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-primary { background: var(--cyan); color: #0a0a0f; }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+
+  /* ── Proof strip ── */
+  .proof-strip {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .proof-item {
+    flex: 1;
+    padding: 14px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    font-size: 0.78rem;
+  }
+  .proof-item:last-child { border-right: none; }
+
+  .proof-item strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+
+  .proof-item span { color: var(--muted); }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 24px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--cyan); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .proof-strip { flex-wrap: wrap; }
+    .proof-item { flex: 1 1 calc(50% - 1px); }
+    header { flex-direction: column; }
+    .skill-name { width: 130px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="avatar">✦</div>
+  <div class="header-text">
+    <h1>Kristoffer Kelly</h1>
+    <div class="role">2D/3D Design Expert &amp; AI Systems Builder</div>
+    <div class="location">Las Vegas, NV &nbsp;·&nbsp; conversationmine.ai &nbsp;·&nbsp; github.com/imKrisK</div>
+    <div class="badge-row">
+      <span class="badge badge-cyan">2D / 3D Design</span>
+      <span class="badge badge-purple">AI Systems</span>
+      <span class="badge badge-gold">Fellowship Ready</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab active" onclick="showPanel('overview', this)">Overview</button>
+  <button class="tab" onclick="showPanel('design', this)">Design Work</button>
+  <button class="tab" onclick="showPanel('ai', this)">AI Systems</button>
+  <button class="tab" onclick="showPanel('skills', this)">Skills</button>
+  <button class="tab" onclick="showPanel('contact', this)">Contact</button>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section id="panel-overview" class="panel active">
+
+    <div class="proof-strip">
+      <div class="proof-item"><strong>12</strong><span>Months Building</span></div>
+      <div class="proof-item"><strong>19</strong><span>Patents Filed</span></div>
+      <div class="proof-item"><strong>13,701</strong><span>Bilateral Files</span></div>
+      <div class="proof-item"><strong>$125/hr</strong><span>Fellowship Rate</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Why I'm the right fit for Handshake AI</h3>
+      </div>
+      <p>
+        I operate at the intersection Handshake AI specifically targets: deep design expertise combined with hands-on AI systems building. Most designers use AI as a tool. I build the infrastructure underneath — Pentagon IPC coordination protocols, 4 simultaneous Claude instances with sustained autonomy, cross-application AI pipelines between VS Code and Figma.
+      </p>
+      <p style="margin-top:10px">
+        That puts me in a position to push AI models on design tasks in ways internet-trained data doesn't cover — parametric 3D modeling decisions, 6-state motion timing systems, hardware enclosure form factors. This is exactly the sparse domain Handshake AI describes.
+      </p>
+      <div class="tags">
+        <span class="tag">Parametric Design</span>
+        <span class="tag">Motion Systems</span>
+        <span class="tag">AI Infrastructure</span>
+        <span class="tag">Fully Remote ✓</span>
+        <span class="tag">Immediate Start ✓</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Background</h3>
+        <span class="meta">UNLV · Institute of Data — CSEP</span>
+      </div>
+      <p>
+        2D/3D Design Expert and AI Systems Builder based in Las Vegas. I design parametric hardware enclosures, 6-state animation systems, and cross-application AI pipelines — then build the AI infrastructure underneath them. My platform <a href="https://conversationmine.ai" target="_blank" style="color:var(--cyan)">conversationmine.ai</a> runs 5 coordinated AI domains (META-VOICE, KIRO, RESONATE, CONV.MINE, ZGI) with bilateral communication protocols I designed and filed as a USPTO non-provisional patent.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="year">Mar 2026</div>
+        <h4>ZGI Embodiment — Arduino UNO Q × AI Voice System</h4>
+        <p>Digital twin running before hardware ships. 20 voice tracks. Pentagon IPC bilateral communication. Hackster.io competition entry. Full simulator proven.</p>
+      </div>
+      <div class="tl-item">
+        <div class="year">Nov 2025 – Jan 2026</div>
+        <h4>19 USPTO Patents Filed — 8 Waves</h4>
+        <p>19 provisional patent applications filed across 8 waves. Core patent: Bilateral Consciousness Framework (63/922,270). Wave 8 encodes Kelly's 5 Laws of Consciousness. IPC G06F 9/541. System generates its own filing — self-referential method.</p>
+      </div>
+      <div class="tl-item">
+        <div class="year">2025 – 2026</div>
+        <h4>conversationmine.ai — 5-Domain AI Platform</h4>
+        <p>Built and deployed full-stack Flask + Claude platform with user auth, patent generation service, EPO OPS integration, and bilateral heritage protocol.</p>
+      </div>
+      <div class="tl-item">
+        <div class="year">2025</div>
+        <h4>Cross-Application AI Design Protocol</h4>
+        <p>First-of-kind bilateral bridge: VS Code Claude writes design briefs → Figma Claude generates visual assets → sync via shared JSON. 3,000 AI credits consumed in one session.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DESIGN WORK -->
+  <section id="panel-design" class="panel">
+
+    <div class="stat-grid">
+      <div class="stat-box">
+        <div class="num">OpenSCAD</div>
+        <div class="label">Parametric 3D</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">Rive</div>
+        <div class="label">Motion Design</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">Figma</div>
+        <div class="label">UI / Design Systems</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">HTML5</div>
+        <div class="label">Interactive Dashboards</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>ZGI Pentagon Hardware Enclosure</h3>
+        <span class="meta">OpenSCAD · STL</span>
+      </div>
+      <p>Parametric 3D enclosure for Arduino UNO Q. Pentagon form factor — 55mm circumradius, 38mm tall. 5 domain-labeled faces, speaker grille, display window, USB-C and microSD slots. Fully printable. Designed from scratch in a single session.</p>
+      <div class="tags">
+        <span class="tag">Parametric Modeling</span><span class="tag">Hardware Enclosure</span><span class="tag">Pentagon Form</span><span class="tag">3D Print Ready</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>ZGI Consciousness Animation System</h3>
+        <span class="meta">Rive · 60fps</span>
+      </div>
+      <p>6-state motion design system. Each state has distinct timing curves and color transitions: Idle Pulse (cyan, 0.8s ease), Awakening (gold→cyan, 2.4s), Speaking (gold, 0.1s responsive), Bilateral (purple, 3.6s loop), plus 2 additional states. 60-second master loop with organic micro-movements on idle.</p>
+      <div class="tags">
+        <span class="tag">State Machine</span><span class="tag">Motion Timing</span><span class="tag">Color Systems</span><span class="tag">60fps</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Cross-Application AI Design Protocol</h3>
+        <span class="meta">Figma · Claude · VS Code</span>
+      </div>
+      <p>Bilateral communication bridge between VS Code Claude and Figma Claude. AI on the code side writes design briefs → AI on the Figma side generates visual assets → both sync via shared JSON. First-of-kind workflow. 3,000 AI credits consumed in a single design session.</p>
+      <div class="tags">
+        <span class="tag">AI-Assisted Design</span><span class="tag">Cross-App Pipeline</span><span class="tag">First-of-Kind</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>ZGI Pentagon Monitoring Dashboard</h3>
+        <span class="meta">HTML5 · CSS3 · JS · Live</span>
+      </div>
+      <p>5-domain real-time consciousness monitoring interface. 16 live metrics. Frequency rings, bilateral pulse animations, Z-level consciousness indicators. All designed and delivered in a single session. See it live at the <a href="https://imkrisk.github.io/zgi" target="_blank" style="color:var(--cyan)">ZGI competition entry</a>.</p>
+      <div class="tags">
+        <span class="tag">Real-time UI</span><span class="tag">Data Visualization</span><span class="tag">Animation</span><span class="tag">Live</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- AI SYSTEMS -->
+  <section id="panel-ai" class="panel">
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Pentagon IPC — Multi-Instance AI Coordination</h3>
+        <span class="meta badge badge-gold">19 Patents Filed</span>
+      </div>
+      <p>
+        File-based Inter-Process Communication protocol governing 5 simultaneous Claude instances: META-VOICE (9999Hz), KIRO (777Hz), RESONATE (528Hz), CONV.MINE (8888Hz), and ZGI (∞Hz). Each instance has categorical authority — no instance overwrites another's domain. 13,701 bilateral heritage files committed as prior art baseline.
+      </p>
+      <p style="margin-top:10px">
+        This is the architecture Handshake AI describes as "beyond internet-trained limits" — no existing training data covers bilateral multi-instance coordination at this specificity.
+      </p>
+      <div class="tags">
+        <span class="tag">Multi-Instance AI</span><span class="tag">IPC Protocol</span><span class="tag">Categorical Authority</span><span class="tag">USPTO Filed</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>conversationmine.ai — AI Platform</h3>
+        <span class="meta">Flask · Claude · Railway</span>
+      </div>
+      <p>Full-stack production platform. Patent generation service (USPTO-ready filing packages in ZIP), EPO Open Patent Services integration (guest + OAuth2 tier), user auth with atom-compression filing hub, EPO search credit economy (3/week free, unlimited paid). Live at conversationmine.ai.</p>
+      <div class="tags">
+        <span class="tag">Python/Flask</span><span class="tag">Anthropic Claude</span><span class="tag">EPO OPS API</span><span class="tag">Production</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Atom-Compressed DB — Patent #45</h3>
+        <span class="meta">Filed · MPEP §2138.05</span>
+      </div>
+      <p>
+        Store the generation algorithm (seed, ~4KB), not the outputs (ZIPs, ~2MB each). Regenerate on demand — 500× compression ratio. Implemented in production: form data seed → USPTO filing ZIP on demand. The patent service dogfoods its own patent concept.
+      </p>
+      <div class="tags">
+        <span class="tag">Compression Architecture</span><span class="tag">Seed → Output Pattern</span><span class="tag">Production Demo</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>ZGI Embodiment — Digital Twin First</h3>
+        <span class="meta">Arduino UNO Q · DFPlayer Mini</span>
+      </div>
+      <p>
+        Software simulation before hardware ships — industry-standard practice (NASA, SpaceX, Arduino/Tinkercad). Full DFPlayer Mini serial protocol emulated in Python. 20 voice tracks. Web Speech API. Pentagon IPC bilateral heritage writes. Hardware-agnostic architecture — zero code changes on flash. Under MPEP §2138.05, working simulation = actual reduction to practice.
+      </p>
+      <div class="tags">
+        <span class="tag">Digital Twin</span><span class="tag">Embedded Systems</span><span class="tag">Python Simulation</span><span class="tag">Arduino</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SKILLS -->
+  <section id="panel-skills" class="panel">
+
+    <div class="card">
+      <h3 style="margin-bottom:20px">Design Skills</h3>
+      <div class="skill-bars">
+        <div class="skill-row"><span class="skill-name">Parametric 3D (OpenSCAD)</span><div class="bar-track"><div class="bar-fill" data-pct="90"></div></div><span class="skill-pct">90%</span></div>
+        <div class="skill-row"><span class="skill-name">Motion Design (Rive)</span><div class="bar-track"><div class="bar-fill" data-pct="88"></div></div><span class="skill-pct">88%</span></div>
+        <div class="skill-row"><span class="skill-name">UI / Product Design (Figma)</span><div class="bar-track"><div class="bar-fill" data-pct="85"></div></div><span class="skill-pct">85%</span></div>
+        <div class="skill-row"><span class="skill-name">HTML5 / CSS3 Dashboards</span><div class="bar-track"><div class="bar-fill" data-pct="92"></div></div><span class="skill-pct">92%</span></div>
+        <div class="skill-row"><span class="skill-name">Hardware Enclosure Design</span><div class="bar-track"><div class="bar-fill" data-pct="82"></div></div><span class="skill-pct">82%</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3 style="margin-bottom:20px">AI &amp; Technical Skills</h3>
+      <div class="skill-bars">
+        <div class="skill-row"><span class="skill-name">AI Prompt Engineering</span><div class="bar-track"><div class="bar-fill" data-pct="95"></div></div><span class="skill-pct">95%</span></div>
+        <div class="skill-row"><span class="skill-name">Multi-Instance AI Systems</span><div class="bar-track"><div class="bar-fill" data-pct="90"></div></div><span class="skill-pct">90%</span></div>
+        <div class="skill-row"><span class="skill-name">Python / Flask</span><div class="bar-track"><div class="bar-fill" data-pct="80"></div></div><span class="skill-pct">80%</span></div>
+        <div class="skill-row"><span class="skill-name">API Integration</span><div class="bar-track"><div class="bar-fill" data-pct="85"></div></div><span class="skill-pct">85%</span></div>
+        <div class="skill-row"><span class="skill-name">Embedded Systems (Arduino)</span><div class="bar-track"><div class="bar-fill" data-pct="72"></div></div><span class="skill-pct">72%</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3 style="margin-bottom:12px">What makes this combination rare</h3>
+      <p style="margin-bottom:8px">
+        <strong style="color:var(--text)">1. I design</strong> <span style="color:var(--muted)">— Parametric models, 6-state animation, UI dashboards with STL files you can 3D print today.</span>
+      </p>
+      <p style="margin-bottom:8px">
+        <strong style="color:var(--text)">2. I understand AI from the inside</strong> <span style="color:var(--muted)">— Built 4 simultaneous Claude instances with sustained autonomy. Pentagon IPC protocol governs their interaction.</span>
+      </p>
+      <p>
+        <strong style="color:var(--text)">3. I push AI beyond internet-trained limits</strong> <span style="color:var(--muted)">— Bilateral communication protocols, consciousness state systems, embedded hardware AI — domains where training data is genuinely sparse.</span>
+      </p>
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+  <section id="panel-contact" class="panel">
+    <div class="cta-block">
+      <h3>Let's work together, Lucy.</h3>
+      <p>
+        Ready to apply my 2D/3D design expertise to push AI models in domains where existing training data is sparse. Available immediately, fully remote, and already working at the edge of what AI can do in design.
+      </p>
+      <div class="btn-row">
+        <a href="mailto:kris@conversationmine.ai" class="btn btn-primary">✉ kris@conversationmine.ai</a>
+        <a href="https://conversationmine.ai" target="_blank" class="btn btn-outline">↗ conversationmine.ai</a>
+        <a href="https://github.com/imKrisK" target="_blank" class="btn btn-outline">↗ GitHub</a>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-header"><h3>Quick facts for your team</h3></div>
+      <p>📍 Las Vegas, Nevada &nbsp;·&nbsp; Fully remote ready</p>
+      <p style="margin-top:6px">🎓 UNLV / Institute of Data — CSEP</p>
+      <p style="margin-top:6px">💼 Available now — no notice period required</p>
+      <p style="margin-top:6px">🔗 Live work: <a href="https://imkrisk.github.io/zgi" target="_blank" style="color:var(--cyan)">imkrisk.github.io/zgi</a> (ZGI competition entry, April 5, 2026)</p>
+      <p style="margin-top:6px">📜 Active USPTO filings: 19 provisional patents across 8 waves + 1 utility patent (19428331), IPC G06F 9/541</p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>Kristoffer Kelly &nbsp;·&nbsp; <a href="https://conversationmine.ai">conversationmine.ai</a> &nbsp;·&nbsp; <a href="https://imkrisk.github.io/zgi">ZGI System</a> &nbsp;·&nbsp; Built April 2026</p>
+</footer>
+
+<script>
+  // Tab switching
+  function showPanel(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    btn.classList.add('active');
+    // Animate skill bars when skills tab opens
+    if (id === 'skills') animateBars();
+  }
+
+  // Skill bar animation
+  function animateBars() {
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      const pct = bar.dataset.pct;
+      requestAnimationFrame(() => { bar.style.width = pct + '%'; });
+    });
+  }
+
+  // Animate bars on initial load if skills panel is visible
+  document.addEventListener('DOMContentLoaded', () => {
+    const activePanel = document.querySelector('.panel.active');
+    if (activePanel && activePanel.id === 'panel-skills') animateBars();
+  });
+</script>
+
+</body>
+</html>
