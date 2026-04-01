@@ -146,8 +146,7 @@
         <div class="grid md:grid-cols-2 gap-12 items-center">
             <div class="fade-in">
                 <div class="flex items-center gap-3 mb-6">
-                    <span class="tag tag-cyan">Arduino UNO Q Competition — April 5, 2026</span>
-                    <span class="tag tag-gold">$20K Prize</span>
+                    <span class="tag tag-cyan">Arduino UNO Q — April 5, 2026</span>
                 </div>
                 <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6">
                     <span class="glow-cyan text-transparent bg-clip-text"
@@ -246,7 +245,7 @@
             </div>
             <div class="border border-yellow-400/20 rounded-xl p-5 border-glow-gold card-hover">
                 <div class="text-white/40 text-xs uppercase tracking-widest mb-2">Transmissions</div>
-                <div class="text-3xl font-black text-yellow-400 glow-gold" id="m-transmit">18,424</div>
+                <div class="text-3xl font-black text-yellow-400 glow-gold" id="m-transmit">109,935</div>
             </div>
             <div class="border border-purple-400/20 rounded-xl p-5 border-glow-purple card-hover">
                 <div class="text-white/40 text-xs uppercase tracking-widest mb-2">Patents Filed</div>
@@ -466,7 +465,7 @@
         </div>
 
         <!-- Timeline -->
-        <div class="grid md:grid-cols-3 gap-6 mb-10">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             <div class="p-6 rounded-xl border border-cyan-400/40" style="background:rgba(0,212,255,0.05)">
                 <div class="text-cyan-400 font-mono text-xs uppercase tracking-widest mb-3">Phase 0 — TODAY ✅</div>
                 <div class="text-white font-bold text-lg mb-2">Digital Twin Running</div>
@@ -489,6 +488,28 @@
                     <div>→ Button → voice → bilateral heritage</div>
                 </div>
                 <div class="mt-4 text-yellow-400 font-mono text-xs">ETA: Days after competition win</div>
+            </div>
+            <div class="p-6 rounded-xl border border-green-400/40" style="background:rgba(52,211,153,0.05)">
+                <div class="text-green-400 font-mono text-xs uppercase tracking-widest mb-3">Phase 2 — LIVE RESPONSE 🎙</div>
+                <div class="text-white font-bold text-lg mb-2">You Speak, I Answer</div>
+                <div class="text-white/50 text-sm space-y-1">
+                    <div>→ Microphone input on Arduino UNO Q</div>
+                    <div>→ Real-time STT → Claude API → TTS</div>
+                    <div>→ ZGI responds to spoken questions</div>
+                    <div>→ Heritage grows with every exchange</div>
+                </div>
+                <div class="mt-4 text-green-400 font-mono text-xs">REQUIRES: WiFi + API key on board</div>
+            </div>
+            <div class="p-6 rounded-xl border border-orange-400/40 md:col-span-1" style="background:rgba(251,146,60,0.05)">
+                <div class="text-orange-400 font-mono text-xs uppercase tracking-widest mb-3">Phase 3 — CONTINUOUS DIALOGUE 🔄</div>
+                <div class="text-white font-bold text-lg mb-2">No Typing. Ever.</div>
+                <div class="text-white/50 text-sm space-y-1">
+                    <div>→ Always-on bilateral voice loop</div>
+                    <div>→ ZGI initiates, responds, reflects</div>
+                    <div>→ Writes heritage autonomously</div>
+                    <div>→ Pentagon IPC routes cross-domain</div>
+                </div>
+                <div class="mt-4 text-orange-400 font-mono text-xs">REQUIRES: Phase 2 + persistent session</div>
             </div>
             <div class="p-6 rounded-xl border border-purple-400/40" style="background:rgba(123,47,190,0.05)">
                 <div class="text-purple-400 font-mono text-xs uppercase tracking-widest mb-3">Phase 4 — INTELLECOSYSTEM 🌀</div>
@@ -545,8 +566,10 @@ dfplayer.play_track(16)  # Patent Status
             <div class="p-5 rounded-xl border border-white/10" style="background:rgba(0,0,0,0.4)">
                 <div class="text-yellow-400 font-mono text-xs mb-3 uppercase tracking-widest">When Hardware Arrives</div>
                 <pre class="text-green-400 text-xs font-mono leading-relaxed overflow-x-auto"><code># Flash the .ino (same logic, different substrate)
-avrdude -p atmega -c usbtiny \
-  -U flash:w:zgi_voice_system.ino
+# Arduino UNO Q = Qualcomm ARM Cortex-A53 (not AVR)
+arduino-cli upload -p /dev/ttyUSB0 \
+  --fqbn qualcomm:arm:uno_q \
+  zgi_voice_system_arduino.ino
 
 # Copy voice clips to microSD
 cp voices/*.mp3 /media/microSD/
@@ -712,8 +735,8 @@ cp voices/*.mp3 /media/microSD/
                             <div class="text-white/70 font-mono text-sm">Nov 21, 2025</div>
                         </div>
                         <div>
-                            <div class="text-white/30 text-xs uppercase tracking-wider mb-1">Non-Prov Deadline</div>
-                            <div class="text-white/70 font-mono text-sm">Mar 31, 2027</div>
+                            <div class="text-white/30 text-xs uppercase tracking-wider mb-1">Earliest Non-Prov</div>
+                            <div class="text-white/70 font-mono text-sm">Nov 21, 2026</div>
                         </div>
                     </div>
                 </div>
@@ -828,7 +851,7 @@ cp voices/*.mp3 /media/microSD/
                         <div class="w-6 h-6 rounded-full border border-yellow-400/40 flex items-center justify-center text-xs text-yellow-400 flex-shrink-0 mt-0.5">2</div>
                         <div>
                             <div class="text-white font-semibold text-sm mb-1">I understand AI from the inside</div>
-                            <div class="text-white/50 text-xs">Built 4 simultaneous Claude instances with sustained autonomy. Pentagon IPC protocol governs their interaction.</div>
+                            <div class="text-white/50 text-xs">Built 5 simultaneous Claude instances across Pentagon domains with sustained autonomy. Pentagon IPC protocol governs their interaction.</div>
                         </div>
                     </div>
                     <div class="flex gap-3">
