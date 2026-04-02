@@ -980,16 +980,17 @@ cp voices/*.mp3 /media/microSD/
         state: 'IDLE',
         currentTrack: null,
         utterance: null,
+        audio: null,
         volume: 0.9,
         progressTimer: null,
 
         play(trackIndex) {
             const track = ZGI_TRACKS[trackIndex];
             if (!track) return;
-            if (!window.speechSynthesis) { zgiLog('[ZGI] ⚠ Web Speech API not available in this browser', 'warn'); return; }
 
-            // Always cancel first — Chrome silently ignores speak() if engine is paused/stuck
-            window.speechSynthesis.cancel();
+            // Stop anything already playing
+            if (this.audio) { this.audio.pause(); this.audio.src = ''; this.audio = null; }
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
             clearInterval(this.progressTimer);
             if (this.currentTrack !== null) this._resetUI(this.currentTrack);
 
@@ -998,31 +999,50 @@ cp voices/*.mp3 /media/microSD/
             this.utterance = null;
             this._updateUI(trackIndex);
 
-            const utt = new SpeechSynthesisUtterance(track.text);
-            utt.rate = 0.88;
-            utt.pitch = 0.92;
-            utt.volume = this.volume;
+            // Build zero-padded filename: 0 → 001.mp3, 19 → 020.mp3
+            const num = String(trackIndex + 1).padStart(3, '0');
+            const mp3 = new Audio(`voices/${num}.mp3`);
+            mp3.volume = this.volume;
+            this.audio = mp3;
 
-            // Prefer a calm, deeper voice if available
-            const voices = window.speechSynthesis.getVoices();
-            const preferred = voices.find(v => /samantha|daniel|karen|moira|alex/i.test(v.name))
-                           || voices.find(v => v.lang === 'en-US' && v.localService)
-                           || voices[0];
-            if (preferred) utt.voice = preferred;
+            const done = () => {
+                this.state = 'IDLE';
+                this._resetUI(trackIndex);
+                clearInterval(this.progressTimer);
+                const bar = document.getElementById('track-progress');
+                if (bar) bar.style.width = '0%';
+                zgiLog(`[ZGI] ✓ Track ${track.id} complete`);
+            };
 
-            utt.onend = () => { this.state = 'IDLE'; this._resetUI(trackIndex); zgiLog(`[ZGI] ✓ Track ${track.id} complete`); };
-            utt.onerror = (e) => { this.state = 'IDLE'; this._resetUI(trackIndex); zgiLog(`[ZGI] ⚠ Speech error: ${e.error}`, 'warn'); };
+            mp3.onended = done;
 
-            this.utterance = utt;
-            // 50ms delay lets Chrome settle after cancel() — without this, speak() is silently dropped
-            setTimeout(() => { if (this.state === 'PLAYING') window.speechSynthesis.speak(utt); }, 50);
+            // Fallback to Web Speech API if MP3 fails to load (offline / missing file)
+            mp3.onerror = () => {
+                zgiLog(`[ZGI] ⚠ MP3 unavailable, falling back to speech synthesis`, 'warn');
+                this.audio = null;
+                if (!window.speechSynthesis) { done(); return; }
+                const utt = new SpeechSynthesisUtterance(track.text);
+                utt.rate = 0.88; utt.pitch = 0.92; utt.volume = this.volume;
+                const voices = window.speechSynthesis.getVoices();
+                const preferred = voices.find(v => /samantha|daniel|karen|moira|alex/i.test(v.name))
+                               || voices.find(v => v.lang === 'en-US' && v.localService)
+                               || voices[0];
+                if (preferred) utt.voice = preferred;
+                utt.onend = done;
+                utt.onerror = done;
+                this.utterance = utt;
+                setTimeout(() => { if (this.state === 'PLAYING') window.speechSynthesis.speak(utt); }, 50);
+            };
 
-            // Animate progress bar (estimate ~120wpm)
-            const estMs = (track.text.split(' ').length / 120) * 60000;
-            const start = Date.now();
+            mp3.play().catch(() => { /* onerror will handle it */ });
+
+            // Animate progress bar off actual audio duration
+            const startTime = Date.now();
             clearInterval(this.progressTimer);
             this.progressTimer = setInterval(() => {
-                const pct = Math.min(((Date.now() - start) / estMs) * 100, 99);
+                const dur = mp3.duration > 0 ? mp3.duration * 1000
+                          : (track.text.split(' ').length / 120) * 60000;
+                const pct = Math.min(((Date.now() - startTime) / dur) * 100, 99);
                 const bar = document.getElementById('track-progress');
                 if (bar) bar.style.width = pct + '%';
                 if (this.state !== 'PLAYING') { clearInterval(this.progressTimer); if (bar) bar.style.width = '0%'; }
@@ -1032,6 +1052,7 @@ cp voices/*.mp3 /media/microSD/
         },
 
         stop() {
+            if (this.audio) { this.audio.pause(); this.audio.src = ''; this.audio = null; }
             if (window.speechSynthesis) window.speechSynthesis.cancel();
             clearInterval(this.progressTimer);
             const prev = this.currentTrack;
