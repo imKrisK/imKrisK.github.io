@@ -991,8 +991,7 @@ cp voices/*.mp3 /media/microSD/
             // Stop anything already playing
             if (this.audio) { this.audio.pause(); this.audio.src = ''; this.audio = null; }
             if (window.speechSynthesis) window.speechSynthesis.cancel();
-            clearInterval(this.progressTimer);
-            if (this.currentTrack !== null) this._resetUI(this.currentTrack);
+            clearInterval(this.progressTimer);            if (this.currentTrack !== null) this._resetUI(this.currentTrack);
 
             this.state = 'PLAYING';
             this.currentTrack = trackIndex;
@@ -1016,25 +1015,17 @@ cp voices/*.mp3 /media/microSD/
 
             mp3.onended = done;
 
-            // Fallback to Web Speech API if MP3 fails to load (offline / missing file)
+            // If MP3 fails, reset to IDLE silently — no speech fallback to avoid dual-audio
             mp3.onerror = () => {
-                zgiLog(`[ZGI] ⚠ MP3 unavailable, falling back to speech synthesis`, 'warn');
+                zgiLog(`[ZGI] ⚠ MP3 ${num}.mp3 failed to load`, 'warn');
                 this.audio = null;
-                if (!window.speechSynthesis) { done(); return; }
-                const utt = new SpeechSynthesisUtterance(track.text);
-                utt.rate = 0.88; utt.pitch = 0.92; utt.volume = this.volume;
-                const voices = window.speechSynthesis.getVoices();
-                const preferred = voices.find(v => /samantha|daniel|karen|moira|alex/i.test(v.name))
-                               || voices.find(v => v.lang === 'en-US' && v.localService)
-                               || voices[0];
-                if (preferred) utt.voice = preferred;
-                utt.onend = done;
-                utt.onerror = done;
-                this.utterance = utt;
-                setTimeout(() => { if (this.state === 'PLAYING') window.speechSynthesis.speak(utt); }, 50);
+                done();
             };
 
-            mp3.play().catch(() => { /* onerror will handle it */ });
+            mp3.play().catch((err) => {
+                zgiLog(`[ZGI] ⚠ Playback blocked: ${err.message}`, 'warn');
+                done();
+            });
 
             // Animate progress bar off actual audio duration
             const startTime = Date.now();
