@@ -1003,12 +1003,16 @@ cp voices/*.mp3 /media/microSD/
             this._audio = audio;
 
             audio.onended = () => { this.state = 'IDLE'; this._resetUI(trackIndex); zgiLog(`[ZGI] ✓ Track ${track.id} complete`); };
-            audio.onerror = (e) => {
+            let _fallbackFired = false;
+            const _fallback = () => {
+                if (_fallbackFired) return;
+                _fallbackFired = true;
                 zgiLog(`[ZGI] ⚠ Audio error for ${num}.mp3 — falling back to Web Speech`, 'warn');
                 this._speakFallback(track, trackIndex);
             };
+            audio.onerror = _fallback;
 
-            audio.play().catch(() => this._speakFallback(track, trackIndex));
+            audio.play().catch(_fallback);
 
             // Animate progress bar using audio.duration when available
             const start = Date.now();
