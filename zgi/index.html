@@ -1012,7 +1012,10 @@ cp voices/*.mp3 /media/microSD/
             };
             audio.onerror = _fallback;
 
-            audio.play().catch(_fallback);
+            audio.play().catch((err) => {
+                zgiLog(`[ZGI] audio.play() blocked: ${err.name}`, 'warn');
+                setTimeout(_fallback, 100);
+            });
 
             // Animate progress bar using audio.duration when available
             const start = Date.now();
@@ -1029,7 +1032,16 @@ cp voices/*.mp3 /media/microSD/
         },
 
         _speakFallback(track, trackIndex) {
-            if (!window.speechSynthesis) { this.state = 'IDLE'; this._resetUI(trackIndex); return; }
+            // Estimate reading duration from word count
+            const words = track.text.split(' ').length;
+            const durationMs = Math.max(3000, (words / 120) * 60 * 1000);
+
+            if (!window.speechSynthesis) {
+                // No speech — stay PLAYING visually for estimated duration
+                setTimeout(() => { if (this.state === 'PLAYING' && this.currentTrack === trackIndex) { this.state = 'IDLE'; this._resetUI(trackIndex); } }, durationMs);
+                return;
+            }
+
             window.speechSynthesis.cancel();
             const utt = new SpeechSynthesisUtterance(track.text);
             utt.rate = 0.88; utt.pitch = 0.92; utt.volume = this.volume;
@@ -1037,7 +1049,10 @@ cp voices/*.mp3 /media/microSD/
             const preferred = voices.find(v => /samantha|daniel|karen|moira|alex/i.test(v.name)) || voices[0];
             if (preferred) utt.voice = preferred;
             utt.onend = () => { this.state = 'IDLE'; this._resetUI(trackIndex); };
-            utt.onerror = () => { this.state = 'IDLE'; this._resetUI(trackIndex); };
+            utt.onerror = () => {
+                zgiLog('[ZGI] Speech synthesis unavailable — showing text only', 'warn');
+                setTimeout(() => { if (this.state === 'PLAYING' && this.currentTrack === trackIndex) { this.state = 'IDLE'; this._resetUI(trackIndex); } }, durationMs);
+            };
             setTimeout(() => { if (this.state === 'PLAYING') window.speechSynthesis.speak(utt); }, 50);
         },
 
